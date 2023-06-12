@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KasMasuk extends Model
+class KasKeluar extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'kas_masuk';
-    protected $primaryKey       = 'id_kas_masuk';
+    protected $table            = 'kas_keluar';
+    protected $primaryKey       = 'id_kas_keluar';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['penjualan_id','keterangan', 'jenis_kas', 'total_masuk','created_at', 'updated_at'];
+    protected $allowedFields    = ['jenis_kas', 'keterangan', 'total','created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,9 +39,4 @@ class KasMasuk extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function penjualan()
-    {
-        return $this->select()->join('penjualan', 'penjualan.id_penjualan = kas_masuk.penjualan_id');
-    }
 }

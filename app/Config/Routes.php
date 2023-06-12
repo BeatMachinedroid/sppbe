@@ -66,7 +66,22 @@ $routes->get('/profile/' , 'Auth\AuthController::profil');
     $routes->get('/dashboard/kas/masuk/delete/(:segment)', 'Dashboard\KasMasukController::delete/$1');
     $routes->get('/dashboard/kas/masuk/search', 'Dashboard\KasMasukController::search');
 
+    // Kas keluar
+    $routes->get('/dashboard/kas/keluar', 'Dashboard\KasKeluarController::index');
+    $routes->post('/dashboard/kas/keluar/post', 'Dashboard\KasKeluarController::store');
+    $routes->post('/dashboard/kas/keluar/edit/(:segment)', 'Dashboard\KasKeluarController::edit/$1');
+    $routes->get('/dashboard/kas/keluar/delete/(:segment)', 'Dashboard\KasKeluarController::delete/$1');
+    $routes->get('/dashboard/kas/keluar/search', 'Dashboard\KasKeluarController::search');
+
+    // laporan
+    $routes->get('/dashboard/kas/laporan', 'Dashboard\LaporanController::index');
+    $routes->post('/dashboard/kas/laporan/search', 'Dashboard\LaporanController::search');
+    $routes->get('pdf', 'Dashboard\LaporanController::generatePdf');
+
+
+    // akun
     $routes->get('/dashboard/acount', 'Auth\AuthController::acount');
+
     
 // }); 
 /*

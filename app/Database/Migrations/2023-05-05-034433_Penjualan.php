@@ -20,9 +20,9 @@ class Penjualan extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            'pelanggan' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
+            'keterangan' => [
+                'type' => 'varchar',
+                'constraint' => 255,
             ],
             'jumlah' => [
                 'type' => 'INT',

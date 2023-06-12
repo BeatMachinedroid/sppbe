@@ -35,7 +35,15 @@ class Users extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-
+        
+        $this->db->table('barang')->insert([
+            'nama' => 'gas',
+            'harga_jual' => '10000',
+            'harga_beli' => '9000',
+            'stok' => '30',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
     }
 }

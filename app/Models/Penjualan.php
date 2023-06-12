@@ -14,7 +14,7 @@ class Penjualan extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['barang_id','pelanggan', 'jumlah','total','created_at', 'updated_at'];
+    protected $allowedFields    = ['barang_id','keterangan', 'jumlah','total','created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = false;

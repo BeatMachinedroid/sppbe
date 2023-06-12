@@ -22,7 +22,24 @@
     <link href="<?= base_url('assets/css/lib/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/lib/helper.css'); ?>" rel="stylesheet">
     <link href="<?= base_url('assets/css/style.css'); ?>" rel="stylesheet">
-    
+    <style>
+        /* Gaya cetak khusus */
+        @media print {
+            .sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures,
+            .pace,
+            .header,
+            .page-header,
+            .col-sm-6,
+            .col-sm-3,
+            .btn,
+            #toolbarContainer,
+            .footer        
+            {
+                display: none;
+            }
+            
+        }
+    </style>
 </head>
 
 <body>
@@ -45,6 +62,7 @@
                         <ul style="display: none;">
                             <li><a href="<?= base_url('dashboard/kas/masuk'); ?>"> Kas Masuk </a></li>
                             <li><a href="<?= base_url('dashboard/kas/keluar'); ?>"> Kas Keluar </a></li>
+                            <li><a href="<?= base_url('dashboard/kas/laporan'); ?>"> Laporan Kas </a></li>
                         </ul>
                     </li>
                     <li><a href="<?= base_url('/dashboard/acount'); ?>"><i class="ti-user"></i> Acount </a></li>

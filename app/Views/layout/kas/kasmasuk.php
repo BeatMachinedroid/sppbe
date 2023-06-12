@@ -62,8 +62,7 @@
                                                         <?php endif; ?>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nama User</th>
-                                                                <th>Jenis User</th>
+                                                                
                                                                 <th>Jenis Kas</th>
                                                                 <th>ID Penjualan</th>
                                                                 <th>Keterangan</th>
@@ -81,10 +80,9 @@
                                                             <?php $no=1+(10*($page-1)); foreach ($masuk as $item): ?>
                                                                 <tr>
                                                                     <th scope="row"><?= $no++; ?></th>
-                                                                    <td><?= $item['username']; ?></td>
-                                                                    <td><?= $item['role']; ?></td>
+                                                                
                                                                     <td><?= $item['jenis_kas']; ?></td>
-                                                                    <td class="text-center"><?= $item['penjualan_id']; ?></td>
+                                                                    <td style="text-aligen: center"><?= $item['penjualan_id']; ?></td>
                                                                     <td><?= $item['keterangan']; ?></td>
                                                                     <td>Rp.<?= $item['total_masuk']; ?></td>
                                                                     <td><?= date('d / m / Y', strtotime($item['created_at'])); ?></td>

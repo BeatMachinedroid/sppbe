@@ -8,6 +8,11 @@ class Home extends BaseController
     {
         $session = session();
         $username = $session->get('username');
-        return view('layout/Dashboard/dashboard');
+        if ($session->get('isLoggedIn') === true) {
+            return view('layout/Dashboard/dashboard');
+        } else {
+            return view('layout/Auth/login');
+        }
+        
     }
 }

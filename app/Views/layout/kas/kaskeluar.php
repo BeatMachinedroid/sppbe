@@ -8,7 +8,7 @@
                     <div class="col-lg-8 p-r-0 title-margin-right">
                         <div class="page-header">
                             <div class="page-title">
-                                <h1>List Penjualan</h1>
+                                <h1>List Kas Masuk</h1>
                             </div>
                         </div>
                     </div>
@@ -18,7 +18,7 @@
                             <div class="page-title">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Penjualan</li>
+                                    <li class="breadcrumb-item active">Kas Keluar</li>
                                 </ol>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <div class="row">
                                     <div class="col-sm-3" style="text-align:left; ">
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                                        Add penjualan
+                                        Add Kas-keluar
                                     </button>
                                     </div>
                                     <div class="col-sm-6" style="text-align:right; ">
@@ -42,7 +42,7 @@
                                         <a href="" class="btn btn-info btn-outline m-b-10">Excel</a> -->
                                     </div>
                                     <div class="col-sm-3">
-                                        <form action="<?= base_url('/dashboard/barang/search'); ?>" method="get">
+                                        <form action="<?= base_url('/dashboard/kas/masuk/search'); ?>" method="get">
                                             <div class="form-group">
                                                 <input type="text" class="form-control" placeholder="Search" name="search">
                                             </div>
@@ -62,76 +62,63 @@
                                                         <?php endif; ?>
                                                             <tr>
                                                                 <th>#</th>
-                                                                <th>Nama Barang</th>
+                                                                <th>Jenis Kas</th>
                                                                 <th>Keterangan</th>
-                                                                <th>Harga jual</th>
-                                                                <th>Harga beli</th>
-                                                                <th>Jumlah</th>
                                                                 <th>Total</th>
-                                                                <th>keuntungan</th>
+                                                                <th>Tanggal</th>
                                                                 <th class="text-left">Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <?php if (empty($penjualan)) { ?>
+                                                        <?php if (empty($keluar)) { ?>
                                                             <div class="alert alert-primary" role="alert">
                                                                 Data is Empty
                                                             </div>
                                                         <?php } else {?>
-                                                            <?php $no=1+(10*($page-1)); foreach ($penjualan as $item): ?>
+                                                            <?php $no=1+(10*($page-1)); foreach ($keluar as $item): ?>
                                                                 <tr>
                                                                     <th scope="row"><?= $no++; ?></th>
-                                                                    <td><?= $item['nama']; ?></td>
+                                                                    <td><?= $item['jenis_kas']; ?></td>
                                                                     <td><?= $item['keterangan']; ?></td>
-                                                                    <td><?= $item['harga_jual']; ?></td>
-                                                                    <td>Rp.<?= $item['harga_beli']; ?></td>
-                                                                    <td><?= $item['jumlah']; ?></td>
-                                                                    <td>Rp. <?= $item['total']; ?></td>
-                                                                    <td>Rp. <?= $item['total'] - $item['harga_beli'] ?></td>
+                                                                    <td>Rp.<?= $item['total']; ?></td>
+                                                                    <td><?= date('d / m / Y', strtotime($item['created_at'])); ?></td>
                                                                     <td class="text-left">
-                                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editbarang-<?= $item['id_penjualan'] ?>">
+                                                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editbarang-<?= $item['id_kas_keluar'] ?>">
                                                                             <span
                                                                                 class="glyphicon glyphicon-pencil"></span>
                                                                             
                                                                             <i class="ti-pencil"></i>
                                                                         </button>
-                                                                        <a href="<?= base_url('/dashboard/penjualan/delete/' . $item['id_penjualan']); ?>"
+                                                                        <a href="<?= base_url('dashboard/kas/keluar/delete/' . $item['id_kas_keluar']); ?>"
                                                                             class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure ?')">
                                                                             <span class="glyphicon glyphicon-trash"></span>
                                                                             
                                                                             <i class="ti-trash"></i>
                                                                         </a>
                                                                     </td>
-                                                                    <div class="modal fade" id="editbarang-<?= $item['id_penjualan'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal fade" id="editbarang-<?= $item['id_kas_keluar'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header" style="background-color: #5873fe;">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Edit Penjualan</h5>
+                                                                                    <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Edit Kas</h5>
                                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                     <span aria-hidden="true"><i class="ti-close" style="color: white;"></i></span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="<?= base_url('dashboard/penjualan/edit/'.$item['id_penjualan']) ?>" method="post">
+                                                                                <form action="<?= base_url('dashboard/kas/keluar/edit/'.$item['id_kas_keluar']) ?>" method="post">
                                                                                 <?= csrf_field(); ?>
                                                                                     <div class="modal-body">
-                                                                                    
-                                                                                        <div class="form-group">
-                                                                                            <label class="control-label">Nama Barang</label>
-                                                                                            <select class="form-control" name="barang">
-                                                                                                    <option value="<?= $item['id_barang']; ?>"><?= $item['nama']; ?></option>
-                                                                                                <?php foreach ($barang as $item2): ?>
-                                                                                                    <option value="<?= $item2['id_barang']; ?>"><?= $item2['nama']; ?></option>
-                                                                                                <?php endforeach; ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                        <label class="control-label">Jumlah</label>
-                                                                                            <input type="number" class="form-control" placeholder="Jumlah" name="jumlah" value="<?= $item['jumlah']; ?>">
-                                                                                        </div>
-                                                                                        <label class="control-label">keterangan</label>
-                                                                                            <input type="text" class="form-control" placeholder="keterangan" name="keterangan" value="<?= $item['keterangan']; ?>">
-                                                                                        </div>
+                                                                                    <div class="form-group">
+                                                                                        <input type="text" class="form-control" placeholder="Jenis Kas keluar" name="jenis" value="<?= $item['jenis_kas']; ?>">
+                                                                                    </div>
                                                                                 
+                                                                                    <div class="form-group">
+                                                                                        <input type="text" class="form-control" placeholder="total kas keluar" name="total" value="<?= $item['total']; ?>">
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <input type="text" class="form-control" placeholder="Keterangan" name="keterangan" value="<?= $item['keterangan']; ?>">
+                                                                                    </div>
+                                                                                    </div>
                                                                                     <div class="modal-footer">
                                                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                                                                         <button type="submit" class="btn btn-primary">Save</button>
@@ -152,7 +139,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                                <?= $pager->Links('penjualan', 'bootstrap_template') ?>
+                                                <?= $pager->Links('keluar', 'bootstrap_template') ?>
                                     </div>
                                 </div>
                             </div>
@@ -161,44 +148,40 @@
                 </div>
 
                 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                        <div class="modal-header" style="background-color: #5873fe;">
-                            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Add Penjualan</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><i class="ti-close" style="color: white;"></i></span>
-                                </button>
-                            </div>
-                            <form action="<?= base_url('/dashboard/penjualan/post'); ?>" method="post">
-                                <?= csrf_field(); ?>
-                                <div class="modal-body">
-                                        <div class="form-group">
-                                        <input type="hidden" name="user" value="<?= session()->get('id_user'); ?>">
-                                        <label class="control-label">Nama Barang</label>
-                                            <select class="form-control" name="barang">
-                                                <?php foreach ($barang as $item): ?>
-													<option value="<?= $item['id_barang']; ?>"><?= $item['nama']; ?></option>
-                                                <?php endforeach; ?>
-											</select>
-                                        </div>
-                                    
-                                        <div class="form-group">
-                                        <label class="control-label">Jumlah</label>
-                                            <input type="number" class="form-control" placeholder="Jumlah" name="jumlah">
-                                        </div>
-
-                                        <div class="form-group">
-                                        <label class="control-label">keterangan</label>
-                                            <input type="text" class="form-control" placeholder="Keterangan" name="keterangan">
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #5873fe;">
+                <h5 class="modal-title" id="exampleModalLabel" style="color: white;">Add Kas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><i class="ti-close" style="color: white;"></i></span>
+                </button>
+            </div>
+            <form action="<?= base_url('/dashboard/kas/keluar/post'); ?>" method="post">
+                <?= csrf_field(); ?>
+                <div class="modal-body">
+                        <input type="hidden" name="user" value="<?= session()->get('id_user'); ?>">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Jenis Kas Masuk" name="jenis">
                         </div>
-                    </div>
+                    
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="total" name="total">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Keterangan" name="keterangan">
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Harga beli" name="harga-beli">
+                        </div> -->
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
                 <?= $this->include('layout/header/footer'); ?>
 

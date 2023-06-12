@@ -11,7 +11,7 @@ class KasMasukController extends BaseController
     {
         $pager = \Config\Services::pager();
         $masuk = new KasMasuk();
-        $data['masuk'] = $masuk->user();
+        $data['masuk'] = $masuk->paginate(5, 'masuk');
         $data['pager'] = $masuk->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         // dd($data);
@@ -22,7 +22,6 @@ class KasMasukController extends BaseController
     {
         $masuk = new KasMasuk();
         $data = [
-            'user_id' => $this->request->getPost('user'),
 			'jenis_kas' => $this->request->getPost('jenis'),
 			'keterangan' => $this->request->getPost('keterangan'),
 			'total_masuk' => $this->request->getPost('total'),

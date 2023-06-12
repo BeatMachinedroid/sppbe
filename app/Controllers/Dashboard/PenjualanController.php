@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\Penjualan;
 use App\Models\KasMasuk;
 use App\Models\barang;
+use App\Models\Laporan;
 use Carbon\Carbon; 
 
 class PenjualanController extends BaseController
@@ -37,31 +38,25 @@ class PenjualanController extends BaseController
         $brg = $barang->find($this->request->getPost('barang'));
         $data = [
             'barang_id' => $this->request->getPost('barang'),
-            'pelanggan' => $this->request->getPost('pelanggan'),
+            'keterangan' => $this->request->getPost('keterangan'),
 			'jumlah' => $this->request->getPost('jumlah'),
 			'total' => $brg['harga_jual'] * $this->request->getPost('jumlah'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-        ];
-        
+        ];      
         $penjualan->insert($data);
-
         $penjualanId = $penjualan->insertID();
+            $masuk = new KasMasuk();
+            $data2 = [
+                'penjualan_id' => $penjualanId,
+                'jenis_kas' => 'Penjualan',
+                'keterangan' => $this->request->getPost('keterangan'),
+                'total_masuk' => $brg['harga_jual'] * $this->request->getPost('jumlah') - $brg['harga_beli'] * $this->request->getPost('jumlah'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $masuk->insert($data2);
 
-                $masuk = new KasMasuk();
-                $data2 = [
-                    'user_id' => $this->request->getPost('user'),
-                    'penjualan_id' => $penjualanId,
-                    'jenis_kas' => 'penjualan',
-                    'keterangan' => 'keuntungan penjualan',
-                    'total_masuk' => $brg['harga_jual'] * $this->request->getPost('jumlah') - $brg['harga_beli'] * $this->request->getPost('jumlah'),
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ];
-
-                $masuk->insert($data2);
-        
-        // dd($penjualanId);
         return redirect()->to(base_url('/dashboard/penjualan'))->with('success', 'Data Added Successfully');
     }
 

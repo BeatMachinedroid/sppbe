@@ -61,6 +61,8 @@ body {
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
+/* css custome alert */
+
 
 hr {
   -webkit-box-sizing: content-box;

@@ -37,7 +37,7 @@
 							<form action="<?= base_url('login/post'); ?>" method="post" class="signin-form">
 			      		<div class="form-group mb-3">
 			      			<!-- <label class="label" for="name">Username</label> -->
-			      			<input type="email" class="form-control" placeholder="Email" name="email" value="<?= set_value('email') ?>">
+			      			<input type="email" class="form-control" placeholder="Email" name="email" >
 			      		</div>
 		            <div class="form-group mb-3">
 		            	<!-- <label class="label" for="password">Password</label> -->
