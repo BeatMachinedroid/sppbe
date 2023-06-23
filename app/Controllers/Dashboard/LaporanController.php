@@ -24,12 +24,14 @@ class LaporanController extends BaseController
                 ->groupBy('kas_masuk.created_at')
                 ->findAll();
             foreach ($data['laporan1'] as $item) {
-                $data['tanggal'] = $item['created_at'];
+
+                    $data['tanggal'] = $item['created_at'];
+                
             }
             $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
                 ->groupBy('kas_keluar.created_at')
                 ->findAll();
-            // dd($data['laporan2']);
+            // dd($data['tanggal']);
             
             return view('layout/kas/laporan', $data);
         } else {

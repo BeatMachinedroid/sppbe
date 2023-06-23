@@ -1536,8 +1536,10 @@ footer p {
   color: #868e96;
 }
 .stat-widget-one .stat-digit {
-  font-size: 24px;
   color: #373757;
+  width: fit-content;
+  font-size: 100%;
+  white-space: nowrap;
 }
 /*    Widget Two
 ---------------------------*/

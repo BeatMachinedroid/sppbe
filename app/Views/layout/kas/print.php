@@ -1,29 +1,20 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Laporan</title>
     <style>
-        /* CSS khusus untuk tampilan PDF */
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+        /* Gaya cetak khusus */
+        @media print {
+            /* Atur tampilan yang diinginkan untuk cetak */
+            /* Misalnya, menghilangkan elemen yang tidak diperlukan seperti navigasi, footer, dll. */
         }
     </style>
 </head>
 <body>
-    <h1>Laporan</h1>
-
-    <table class="table">
+    <!-- Isi laporan -->
+    <h1>PT Karunia Ulul Azmi</h1>
+    <table>
                                                         <thead>
                                                             <tr>
                                                                 <!-- <th class="text-center">Tanggal</th> -->
@@ -120,3 +111,4 @@
                                                     </table>
 </body>
 </html>
+                                                    

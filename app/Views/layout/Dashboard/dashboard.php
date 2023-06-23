@@ -32,8 +32,17 @@
                                     <div class="stat-icon dib"><i class="ti-money color-success border-success"></i>
                                     </div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text">Total Profit</div>
-                                        <div class="stat-digit">1,012</div>
+                                        <div class="stat-text">Total Kas</div>
+                                        <?php
+                                        $total = 0;
+                                            foreach ($laporan1 as $item2) {
+                                                    $total += $item2['total_masuk'];}
+                                                            ?><?php
+                                        $total1 = 0;
+                                            foreach ($laporan2 as $item3) {
+                                                    $total1 += $item3['total'];}
+                                                    ?>
+                                        <div class="stat-digit">Rp.<?= $total - $total1; ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -41,11 +50,11 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-user color-primary border-primary"></i>
+                                    <div class="stat-icon dib"><i class="ti-stats-up color-primary border-primary"></i>
                                     </div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text">New Customer</div>
-                                        <div class="stat-digit">961</div>
+                                        <div class="stat-text">Kas Masuk</div>
+                                        <div class="stat-digit">Rp.<?= $total; ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -53,11 +62,11 @@
                         <div class="col-lg-3">
                             <div class="card">
                                 <div class="stat-widget-one">
-                                    <div class="stat-icon dib"><i class="ti-layout-grid2 color-pink border-pink"></i>
+                                    <div class="stat-icon dib"><i class="ti-stats-down color-pink border-pink"></i>
                                     </div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text">Active Projects</div>
-                                        <div class="stat-digit">770</div>
+                                        <div class="stat-text">Kas Masuk</div>
+                                        <div class="stat-digit">Rp.<?= $total1; ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +76,12 @@
                                 <div class="stat-widget-one">
                                     <div class="stat-icon dib"><i class="ti-link color-danger border-danger"></i></div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text">Referral</div>
-                                        <div class="stat-digit">2,781</div>
+                                        <?php $total_penjualan = 0;
+                                        foreach ($penjualan as $hasil) {
+                                            $total_penjualan += $hasil['total'];
+                                        }?>
+                                        <div class="stat-text">Total Penjualan</div>
+                                        <div class="stat-digit">Rp.<?= $total_penjualan; ?></div>
                                     </div>
                                 </div>
                             </div>

@@ -19,7 +19,7 @@
 				<div class="col-md-12 col-lg-10">
 					<div class="wrap d-md-flex">
 						<div class="img" style="background-image: url(<?= base_url(
-          'images/bg.jpg'
+          'images/1.jpeg'
       ) ?>);">
 			        </div>
 						<div class="login-wrap p-4 p-md-5">
