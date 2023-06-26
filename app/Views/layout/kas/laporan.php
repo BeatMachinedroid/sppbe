@@ -91,7 +91,8 @@
                                                         <tr>
                                                             
                                                             <th colspan="4" class="text-center text-black font-weight-bold">Tanggal : 
-                                                                <?= date('d  M  Y',strtotime( $tanggal)) ?></th>
+                                                                <?= date('d  M  Y',strtotime( $tanggal)) ?>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <th colspan="4" class="text-center text-black font-weight-bold">Kas Masuk</th>

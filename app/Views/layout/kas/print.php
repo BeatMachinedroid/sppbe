@@ -14,7 +14,7 @@
 <body>
     <!-- Isi laporan -->
     <h1>PT Karunia Ulul Azmi</h1>
-    <table>
+    <table >
                                                         <thead>
                                                             <tr>
                                                                 <!-- <th class="text-center">Tanggal</th> -->

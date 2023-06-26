@@ -29,7 +29,7 @@ class BarangController extends BaseController
         ];
         // dd($data);
         $barang->insert($data);
-        $barang->create_at = Carbon::now();
+        $barang->created_at = Carbon::now();
         return redirect()->to(base_url('/dashboard/barang'))->with('success', 'Data Added Successfully');
     }
 

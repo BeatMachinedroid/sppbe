@@ -43,7 +43,6 @@ class KasKeluarController extends BaseController
 			'keterangan' => $this->request->getPost('keterangan'),
 			'total' => $this->request->getPost('total'),
         ];
-
         $keluar->update($id , $data);
         $keluar->updated_at = Carbon::now();
         return redirect()->to(base_url('/dashboard/kas/keluar'))->with('success', 'Data Edit Successfully');

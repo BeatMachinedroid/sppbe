@@ -28,7 +28,7 @@ class KasMasukController extends BaseController
         ];
 
         $masuk->insert($data);
-        $masuk->create_at = Carbon::now();
+        $masuk->created_at = Carbon::now();
         return redirect()->to(base_url('/dashboard/kas/masuk'))->with('success', 'Data Added Successfully');
     }
 

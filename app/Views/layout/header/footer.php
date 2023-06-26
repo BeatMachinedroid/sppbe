@@ -38,6 +38,6 @@
     <script src="<?= base_url('assets/js/lib/owl-carousel/owl.carousel.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/lib/owl-carousel/owl.carousel-init.js'); ?>"></script>
     <!-- scripit init-->
-    <script src="<?= base_url('assets/js/dashboard2.js'); ?>"></script>
+
     </body>
 </html>
