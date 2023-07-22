@@ -33,9 +33,11 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-3" style="text-align:left; ">
+                                    <?php if (session()->get('role') == 'admin') {?>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
                                         Add Kas
                                     </button>
+                                    <?php }?>
                                     </div>
                                     <div class="col-sm-6" style="text-align:right; ">
                                         <!-- <a href="" class="btn btn-info btn-outline m-b-10">Pdf</a>
@@ -68,7 +70,9 @@
                                                                 <th>Keterangan</th>
                                                                 <th>Total Masuk</th>
                                                                 <th>Tanggal Masuk</th>
+                                                                <?php if (session()->get('role') == 'admin') {?>
                                                                 <th class="text-left">Action</th>
+                                                                <?php }?>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -86,6 +90,7 @@
                                                                     <td><?= $item['keterangan']; ?></td>
                                                                     <td>Rp.<?= $item['total_masuk']; ?></td>
                                                                     <td><?= date('d / m / Y', strtotime($item['created_at'])); ?></td>
+                                                                    <?php if (session()->get('role') == 'admin') {?>
                                                                     <td class="text-left">
                                                                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editbarang-<?= $item['id_kas_masuk'] ?>">
                                                                             <span
@@ -100,6 +105,7 @@
                                                                             <i class="ti-trash"></i>
                                                                         </a>
                                                                     </td>
+                                                                    <?php }?>
                                                                     <div class="modal fade" id="editbarang-<?= $item['id_kas_masuk'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog">
                                                                             <div class="modal-content">

@@ -13,10 +13,10 @@
 
 	</head>
 	<body>
-	<section class="ftco-section" style="background: #343957">
+	<!-- <section class="ftco-section" style="background: #343957"> -->
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
+			<div class="row">
+				<!-- <div class="col-md-12 col-lg-10"> -->
 					<div class="wrap d-md-flex">
 						<div class="img" style="background-image: url(<?= base_url(
           'images/1.jpeg'
@@ -71,12 +71,12 @@
 		          <p class="text-center">You have Account ? <a href="<?= base_url(
                 '/'
             ) ?>">Sign In</a></p>
-		        </div>
+		        <!-- </div> -->
 		      </div>
 				</div>
 			</div>
 		</div>
-	</section>
+	<!-- </section> -->
 
 	<script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>

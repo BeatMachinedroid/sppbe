@@ -65,7 +65,9 @@
                             <li><a href="<?= base_url('dashboard/kas/laporan'); ?>"> Laporan Kas </a></li>
                         </ul>
                     </li>
+                    <?php if (session()->get('role') == 'admin') {?>
                     <li><a href="<?= base_url('/dashboard/acount'); ?>"><i class="ti-user"></i> Acount </a></li>
+                    <?php }?>
                     <li><a href="<?= base_url('/dashboard/logout'); ?>"><i class="ti-close"></i> Logout</a></li>
                 </ul>
             </div>

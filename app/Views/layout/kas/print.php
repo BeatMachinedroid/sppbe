@@ -9,12 +9,63 @@
             /* Atur tampilan yang diinginkan untuk cetak */
             /* Misalnya, menghilangkan elemen yang tidak diperlukan seperti navigasi, footer, dll. */
         }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    text-size : 12px;
+}
+
+.container {
+    margin: 50px auto;
+    max-width: 800px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    text-size : 12px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-black {
+    color: black;
+}
+
+.font-weight-bold {
+    /* font-weight: bold; */
+}
+
+.bg-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
     </style>
 </head>
 <body>
     <!-- Isi laporan -->
-    <h1>PT Karunia Ulul Azmi</h1>
-    <table >
+    <h1 style="text-align: center">PT Karunia Ulul Azmi</h1>
+    <table border="1">
                                                         <thead>
                                                             <tr>
                                                                 <!-- <th class="text-center">Tanggal</th> -->
@@ -81,7 +132,7 @@
                                                             <th class="text-center">Rp.<?= $item3[
                                                                 'total'
                                                             ] ?></th>
-                                                            <!-- <th colspan="2"></th> -->
+                                                            <th></th>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                         </tr>

@@ -40,14 +40,14 @@ class LaporanController extends BaseController
         $laporankel = new KasKeluar();
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
-        $currentDate = $this->request->getPost('tanggal');
+        $currentDate = $this->request->getGet('tanggal');
         $data['laporan1'] = $laporan
             ->where("DATE(created_at)", $currentDate)
-            ->groupBy('created_at')
+            // ->groupBy('created_at')
             ->findAll();
         
         $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
-            ->groupBy('created_at')
+            // ->groupBy('created_at')
             ->findAll();
 
             if ($data['laporan1'] != null) {
@@ -66,23 +66,54 @@ class LaporanController extends BaseController
         $laporan = new KasMasuk();
         $laporankel = new KasKeluar();
         // $laporan1 = new KasKeluar();
-        $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
-        $currentDate = Carbon::now()->toDateString();
-        $data['laporan1'] = $laporan->penjualan()
-            ->where("DATE(kas_masuk.created_at)", $currentDate)
-            ->groupBy('kas_masuk.created_at')
+        // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
+        $currentDate = $this->request->getGet('tanggal');
+        $data['laporan1'] = $laporan
+            ->where("DATE(created_at)", $currentDate)
+            // ->groupBy('created_at')
             ->findAll();
-        foreach ($data['laporan1'] as $item) {
-            $data['tanggal'] = $item['created_at'];
-        }
+        
         $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
-            ->groupBy('kas_keluar.created_at')
+            // ->groupBy('created_at')
             ->findAll();
-        // dd($data['laporan2']);
+
+            if ($data['laporan1'] != null) {
+                foreach ($data['laporan1'] as $item) {
+                    $data['tanggal'] = $item['created_at'];
+                }
+            }else {
+                $data['tanggal'] = $currentDate;
+            }
+            // dd($data);
 
         $mpdf = new Mpdf();
         $html = view('layout/kas/print', $data);
         $mpdf->WriteHTML($html);
         $mpdf->Output('laporan.pdf', 'D'); // Menampilkan PDF di browser
+    }
+
+    public function print(){
+        $laporan = new KasMasuk();
+        $laporankel = new KasKeluar();
+        // $laporan1 = new KasKeluar();
+        // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
+        $currentDate = $this->request->getGet('tanggal');
+        $data['laporan1'] = $laporan
+            ->where("DATE(created_at)", $currentDate)
+            ->groupBy('created_at')
+            ->findAll();
+        
+        $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
+            ->groupBy('created_at')
+            ->findAll();
+
+            if ($data['laporan1'] != null) {
+                foreach ($data['laporan1'] as $item) {
+                    $data['tanggal'] = $item['created_at'];
+                }
+            }else {
+                $data['tanggal'] = $currentDate;
+            }
+        return view('layout/kas/laporan', $data);
     }
 }

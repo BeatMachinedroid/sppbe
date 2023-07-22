@@ -37,6 +37,9 @@
     <script src="<?= base_url('assets/js/lib/sparklinechart/sparkline.init.js'); ?>"></script>
     <script src="<?= base_url('assets/js/lib/owl-carousel/owl.carousel.min.js'); ?>"></script>
     <script src="<?= base_url('assets/js/lib/owl-carousel/owl.carousel-init.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/lib/morris-chart/morris.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/lib/morris-chart/morris-init.js'); ?>"></script>
+    <script src="<?= base_url('assets/js/lib/morris-chart/raphael-min.js'); ?>"></script>
     <!-- scripit init-->
 
     </body>

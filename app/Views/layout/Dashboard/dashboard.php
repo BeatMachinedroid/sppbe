@@ -65,7 +65,7 @@
                                     <div class="stat-icon dib"><i class="ti-stats-down color-primary border-primary"></i>
                                     </div>
                                     <div class="stat-content dib">
-                                        <div class="stat-text">Kas Masuk</div>
+                                        <div class="stat-text">Kas Keluar</div>
                                         <div class="stat-digit">Rp.<?= $total1; ?></div>
                                     </div>
                                 </div>
@@ -119,14 +119,14 @@
     /*----------------------------------*/
     var KasMasuk = <?= $chartlaporanmasuk?>;
     var KasKeluar = <?= $chartlaporankeluar?>;
-    var KasPenjualan = <?= $chartpenjualan?>;
+    // var KasPenjualan = <?= $chartpenjualan?>;
     
     var data = {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         series: [
     KasMasuk,
-    KasKeluar,
-    KasPenjualan,
+    KasKeluar
+    // KasPenjualan,
   ]
     };
 
@@ -136,7 +136,7 @@
 
     var responsiveOptions = [
   ['screen and (max-width: 640px)', {
-            seriesBarDistance: 5,
+            seriesBarDistance: 10,
             axisX: {
                 labelInterpolationFnc: function (value) {
                     return value[0];

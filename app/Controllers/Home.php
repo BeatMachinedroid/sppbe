@@ -32,7 +32,6 @@ class Home extends BaseController
             $chartlaporankeluar = [];
             $chartlaporanpenjualan = [];
             
-
             $data['chartmasuk'] = $laporan
             ->select('DATE_FORMAT(created_at, "%M") AS bulan, SUM(total_masuk) AS total')
             ->where('Year(created_at)', $currentDate)

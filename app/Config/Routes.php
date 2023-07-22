@@ -75,8 +75,9 @@ $routes->get('/profile/' , 'Auth\AuthController::profil');
 
     // laporan
     $routes->get('/dashboard/kas/laporan', 'Dashboard\LaporanController::index');
-    $routes->post('/dashboard/kas/laporan/search', 'Dashboard\LaporanController::search');
+    $routes->get('/dashboard/kas/laporan/search', 'Dashboard\LaporanController::search');
     $routes->get('pdf', 'Dashboard\LaporanController::generatePdf');
+    $routes->get('print', 'Dashboard\LaporanController::print');
 
 
     // akun

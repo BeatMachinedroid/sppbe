@@ -13,10 +13,10 @@
 
 	</head>
 	<body>
-	<section class="ftco-section" style="background: #343957">
+	<!-- <section class="ftco-section" style="background: white"> -->
 		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-12 col-lg-10">
+			<div class="row ">
+				<!-- <div class="col-md-12"> -->
 					<div class="wrap d-md-flex"> 
 						<div class="img" style="background-image: url(images/1.jpeg);">
 			        </div>
@@ -44,16 +44,16 @@
 		              <input type="password" class="form-control" placeholder="Password" name="password">
 		            </div>
 		            <div class="form-group">
-		            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+		            	<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
 		            </div>
 		          </form>
-		          <p class="text-center">dont have acount? <a href="<?= base_url('register'); ?>">Sign Up</a></p>
-		        </div>
+		          <p class="text-center">dont have acount? <a href="<?= base_url('register'); ?>">Register</a></p>
+		        <!-- </div> -->
 		      </div>
 				</div>
 			</div>
 		</div>
-	</section>
+	<!-- </section> -->
 
 	<script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>

@@ -75,8 +75,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.5rem; }
 
 p {
-  margin-top: 0;
-  margin-bottom: 1rem; }
+  margin-top: 3rem;
+  margin-bottom: 10.2rem; }
 
 abbr[title],
 abbr[data-original-title] {
@@ -456,16 +456,16 @@ pre {
   margin-left: auto; }
   @media (min-width: 576px) {
     .container {
-      max-width: 540px; } }
+      max-width: 100%; } }
   @media (min-width: 768px) {
     .container {
-      max-width: 720px; } }
+      max-width: 100%; } }
   @media (min-width: 992px) {
     .container {
-      max-width: 960px; } }
+      max-width: 100%; } }
   @media (min-width: 1200px) {
     .container {
-      max-width: 1140px; } }
+      max-width: 100%; } }
 
 .container-fluid {
   width: 100%;
@@ -6496,7 +6496,9 @@ button.bg-dark:focus {
   width: 75% !important; }
 
 .w-100 {
-  width: 100% !important; }
+  width: 100% !important; 
+  margin-bottom: 1rem;
+}
 
 .w-auto {
   width: auto !important; }
@@ -8163,8 +8165,8 @@ h1, h2, h3, h4, h5,
 .bg-primary {
   background: #343957 !important; }
 
-.ftco-section {
-  padding: 7em 0; }
+/* .ftco-section {
+  padding: 7em 0; } */
 
 .ftco-no-pt {
   padding-top: 0; }
@@ -8217,7 +8219,7 @@ h1, h2, h3, h4, h5,
     color: gray; }
 
 .form-control {
-  height: 48px;
+  height: 55px;
   background: #fff;
   color: #000;
   font-size: 16px;

@@ -28,7 +28,7 @@ class Users extends Migration
             ],
             'role' => [
                 'type' => 'VARCHAR',
-                'default' => 'user',
+                'default' => 'pegawai',
                 'constraint' => 255
             ],
             'created_at' => [

@@ -36,9 +36,10 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-3">
-                                        <a href="<?= base_url('pdf'); ?>" class="btn btn-primary btn-sm btn-addon">
+                                        <a class="btn btn-primary btn-sm btn-addon" onclick="printPdf()" style="color:white">
                                             <i class="ti-download"></i>PDF
                                         </a>
+                                        <!-- <button onclick="printPdf()">Print PDF</button> -->
                                         <button onclick="window.print()" class="btn btn-primary btn-sm btn-addon">
                                             <i class="ti-printer"></i>PRINT
                                         </button>
@@ -67,7 +68,7 @@
                                            <?php }?>
                                     </div>
                                     <div class="col-sm-3">
-                                        <form action="<?= base_url('dashboard/kas/laporan/search') ?>" method="post" class="form-inline">
+                                        <form action="<?= base_url('dashboard/kas/laporan/search') ?>" method="get" class="form-inline">
                                             <input type="date" class="form-control" name="tanggal" required>
                                             <button type="submit" class="btn btn-primary"><i class="ti-search"></i></button>
                                         </form>
@@ -76,6 +77,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                             <div class="card-body">
+                                                <h1 style="text-align: center">PT Karunia Ulul Azmi</h1>
                                                 <div class="table-responsive table-bordered">
                                                     <table class="table">
                                                         <thead>
@@ -145,7 +147,7 @@
                                                             <th class="text-center">Rp.<?= $item3[
                                                                 'total'
                                                             ] ?></th>
-                                                            <!-- <th colspan="2"></th> -->
+                                                            <th></th>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                         </tr>
@@ -188,4 +190,10 @@
                     </div>
                 </div>
                 <?= $this->include('layout/header/footer') ?>
-                
+                <script>
+                    function printPdf() {
+                        // Ganti dengan URL halaman yang menghasilkan PDF
+                        var pdfUrl = '/pdf?tanggal=<?= date('Y-m-d',strtotime( $tanggal)) ?>';
+                        window.open(pdfUrl, '_blank');
+                    }
+                </script>
