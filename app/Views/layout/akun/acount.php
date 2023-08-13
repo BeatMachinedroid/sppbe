@@ -1,32 +1,37 @@
 
 <?= $this->include('layout/header/header'); ?>
 
-    <div class="content-wrap">
-        <div class="main">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-8 p-r-0 title-margin-right">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <h1>List Barang</h1>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                    <div class="col-lg-4 p-l-0 title-margin-left">
-                        <div class="page-header">
-                            <div class="page-title">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="<?= base_url('dashboard'); ?>">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Barang</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /# column -->
-                </div>
-                <!-- /# row -->
-                <section id="main-content">
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
+    data-scroll="false">
+    <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
+                        href="<?= base_url('dashboard') ?>">Dashboard</a></li>
+                <li class="breadcrumb-item text-sm text-white active" aria-current="page">Acount</li>
+            </ol>
+            <h6 class="font-weight-bolder text-white mb-0 pt-2">List Acount</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0  me-md-0 me-sm-4" id="navbar">
+            <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                <!-- <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Type here...">
+            </div> -->
+            </div>
+            <ul class="navbar-nav  justify-content-end">
+                <li class="nav-item d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                        <i class="fa fa-user me-sm-1"></i>
+                        <span class="d-sm-inline d-none"><?= session()->get('username') ?></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="container-fluid py-4">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -61,7 +66,7 @@
                                                             </div>
                                                         <?php endif; ?>
                                                             <tr>
-                                                                <th>#</th>
+                                                                <th>No</th>
                                                                 <th>Username</th>
                                                                 <th>Email</th>
                                                                 <th>Role</th>
@@ -80,20 +85,20 @@
                                                                     <th scope="row"><?= $no++; ?></th>
                                                                     <td><?= $item['username']; ?></td>
                                                                     <td><?= $item['email']; ?></td>
-                                                                    <td>Rp.<?= $item['role']; ?></td>
+                                                                    <td><?= $item['role']; ?></td>
                                                                     <td><?= date('d / m / Y', strtotime($item['created_at'])); ?></td>
                                                                     <td class="text-left">
                                                                     <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editbarang-<?= $item['id_user'] ?>">
                                                                             <span
                                                                                 class="glyphicon glyphicon-pencil"></span>
                                                                             
-                                                                            <i class="ti-pencil"></i>
+                                                                                <i class="fa fa-pencil" aria-hidden="true"></i>
                                                                         </button>
                                                                         <a href="<?= base_url('/dashboard/barang/delete/' . $item['id_user']); ?>"
                                                                             class="btn btn-danger btn-sm"  onclick="return confirm('Are you sure ?')">
                                                                             <span class="glyphicon glyphicon-trash"></span>
                                                                             
-                                                                            <i class="ti-trash"></i>
+                                                                            <i class="fa fa-trash" aria-hidden="true"></i>
                                                                         </a>
                                                                     </td>
                                                                     <div class="modal fade" id="editbarang-<?= $item['id_user'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

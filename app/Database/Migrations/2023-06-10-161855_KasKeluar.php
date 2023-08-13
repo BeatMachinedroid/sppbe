@@ -15,17 +15,27 @@ class KasKeluar extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'jenis_kas' => [
-                'type' => 'Varchar',
-                'constraint' => 100,
+            'pembelian_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
+                'null' => true,
+            ],
+            'jenis_kas_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
             'keterangan' => [
                 'type' => 'varchar',
                 'constraint' => 255,
             ],
-            'total' => [
+            'total_keluar' => [
                 'type' => 'INT',
                 'constraint' => 20,
+            ],
+            'tanggal' => [
+                'type' => 'date',
             ],
             'created_at' => [
                 'type' => 'timestamp',
@@ -37,8 +47,10 @@ class KasKeluar extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id_kas_keluar', true);
+        $this->forge->addPrimaryKey('id_kas_keluar');
         $this->forge->createTable('kas_keluar');
+        $this->db->query('ALTER TABLE `kas_keluar` ADD CONSTRAINT `fk_pembelian_id` FOREIGN KEY (`pembelian_id`) REFERENCES `pembelian`(`id_pembelian`) ON DELETE CASCADE' );
+        $this->db->query('ALTER TABLE `kas_keluar` ADD CONSTRAINT `fk_jenis_kas_keluar_id` FOREIGN KEY (`jenis_kas_id`) REFERENCES `jenis_kas`(`id_jenis_kas`)');
     }
 
     public function down()

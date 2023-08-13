@@ -15,12 +15,16 @@ class Penjualan extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'barang_id' => [
+            'customer_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
             ],
-            'keterangan' => [
+            'barang' => [
+                'type' => 'varchar',
+                'constraint' => 255,
+            ],
+            'keterangan_penjualan' => [
                 'type' => 'varchar',
                 'constraint' => 255,
             ],
@@ -31,6 +35,9 @@ class Penjualan extends Migration
             'total' => [
                 'type' => 'INT',
                 'constraint' => 11,
+            ],
+            'tanggal' => [
+                'type' => 'date',
             ],
             'created_at' => [
                 'type' => 'timestamp',
@@ -43,7 +50,7 @@ class Penjualan extends Migration
         ]);
         $this->forge->addPrimaryKey('id_penjualan');
         $this->forge->createTable('penjualan');
-        $this->db->query('ALTER TABLE `penjualan` ADD CONSTRAINT `fk_barang_id` FOREIGN KEY (`barang_id`) REFERENCES `barang`(`id_barang`)');
+        $this->db->query('ALTER TABLE `penjualan` ADD CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer`(`id_customer`)');
     }
 
     public function down()

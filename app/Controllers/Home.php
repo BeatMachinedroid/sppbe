@@ -16,60 +16,60 @@ class Home extends BaseController
         $laporankel = new KasKeluar();
         $penjualan = new Penjualan();
         // $laporan1 = new KasKeluar();
-        // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
-        $currentDate = Carbon::now()->format('Y');
-        $data['laporanmasuk'] = $laporan
-            ->where('Year(created_at)', $currentDate)
-            ->findAll();
-        $data['laporankeluar'] = $laporankel
-            ->where('Year(created_at)', $currentDate)
-            ->findAll();
-        $data['penjualan'] = $penjualan
-            ->where('Year(created_at)', $currentDate)
-            ->findAll();
+        $data['penjualan'] = $penjualan->groupBy('tanggal', 'desc')->findAll();
+        // $currentDate = Carbon::now()->format('Y');
+        $data['MasukIntern'] = $laporan->where('jenis_kas_id', 1)->findAll();
+        $data['MasukExtern'] = $laporan->where('jenis_kas_id', 2)->findAll();
+        $data['KeluarIntern'] = $laporankel->where('jenis_kas_id', 1)->findAll();
+        $data['KeluarExtern'] = $laporankel->where('jenis_kas_id', 2)->findAll();
 
-            $chartlaporanmasuk = [];
-            $chartlaporankeluar = [];
-            $chartlaporanpenjualan = [];
+            // $chartlaporanmasuk = [];
+            // $chartlaporankeluar = ""
+            // $chartlaporanpenjualan = [];
             
             $data['chartmasuk'] = $laporan
-            ->select('DATE_FORMAT(created_at, "%M") AS bulan, SUM(total_masuk) AS total')
-            ->where('Year(created_at)', $currentDate)
+            ->select('DATE_FORMAT(tanggal, "%M") AS bulan, SUM(total_masuk) AS totalmasuk')
             ->groupBy('bulan')
-            ->orderBy('bulan', 'ASC')
             ->findAll();
 
             $data['chartkeluar'] = $laporankel
-            ->select('DATE_FORMAT(created_at, "%M") AS bulan, SUM(total) AS total')
-            ->where('Year(created_at)', $currentDate)
+            ->select('DATE_FORMAT(tanggal, "%M") AS bulan, SUM(total_keluar) AS totalkeluar')
             ->groupBy('bulan')
-            ->orderBy('bulan', 'ASC')
             ->findAll();
 
-            $data['chartpenjualan'] = $penjualan
-            ->select('DATE_FORMAT(created_at, "%M") AS bulan, SUM(total) AS total')
-            ->where('Year(created_at)', $currentDate)
-            ->groupBy('bulan')
-            ->orderBy('bulan', 'ASC')
-            ->findAll();
+            $chartmasuk = $data['chartmasuk'];
+            $chartkeluar = $data['chartkeluar'];
 
-            foreach ($data['chartmasuk'] as $item) {
-                $chartlaporanmasuk[] = $item['total'];
+            $monthlyCashFlow = [];
+            foreach ($chartmasuk as $masuk) {
+                $bulan = $masuk['bulan'];
+                $totalmasuk = $masuk['totalmasuk'];
+            
+                // Initialize the monthlyCashFlow array with the month and total_masuk value
+                $monthlyCashFlow[$bulan] = [
+                    'bulan' => $bulan,
+                    'total_masuk' => $totalmasuk,
+                    'total_keluar' => 0, // Initialize total_keluar as 0
+                    'total_kas' => $totalmasuk, // Initialize total_kas with total_masuk value
+                ];
             }
 
-            foreach ($data['chartkeluar'] as $item) {
-                $chartlaporankeluar[] = $item['total'];
+            foreach ($chartkeluar as $keluar) {
+                $bulan = $keluar['bulan'];
+                $totalkeluar = $keluar['totalkeluar'];
+            
+                // Update the existing entry in the monthlyCashFlow array
+                if (isset($monthlyCashFlow[$bulan])) {
+                    $monthlyCashFlow[$bulan]['total_keluar'] = $totalkeluar;
+                    $monthlyCashFlow[$bulan]['total_kas'] -= $totalkeluar;
+                }
             }
 
-            foreach ($data['chartpenjualan'] as $item) {
-                $chartlaporanpenjualan[] = $item['total'];
-            }
-
+            $totalKasData = array_values($monthlyCashFlow);
         if ($session->get('isLoggedIn') === true) {
             // chart data
-            $data['chartlaporanmasuk']  = json_encode($chartlaporanmasuk);
-            $data['chartlaporankeluar'] = json_encode($chartlaporankeluar);
-            $data['chartpenjualan'] = json_encode($chartlaporanpenjualan);
+            $data['totalkas'] = $totalKasData;
+            // dd($data);
             return view('layout/Dashboard/dashboard', $data);
         } else {
             return redirect()->to(base_url('/'));

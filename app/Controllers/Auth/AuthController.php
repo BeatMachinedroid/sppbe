@@ -103,4 +103,18 @@ class AuthController extends BaseController
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         return view('layout/akun/acount', $data);
     }
+
+    public function edit(){
+        $session = session();
+        $userModel = new Users();
+            $data = [
+                'username'     => $this->request->getVar('username'),
+                'email'    => $this->request->getVar('email'),
+                'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $userModel->save($data);
+            return redirect()->to(base_url('/'));
+    }
 }

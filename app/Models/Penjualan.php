@@ -14,7 +14,7 @@ class Penjualan extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['barang_id','keterangan', 'jumlah','total','created_at', 'updated_at'];
+    protected $allowedFields    = ['customer_id','barang','keterangan_penjualan', 'jumlah','total','tanggal','created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = false;
@@ -40,8 +40,9 @@ class Penjualan extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function barang()
+    public function customers()
     {
-        return $this->select()->join('barang', 'barang.id_barang = penjualan.barang_id')->paginate(5,'penjualan');
+        return $this->select()->join('customer', 'customer.id_customer = penjualan.customer_id')->paginate(5, 'penjualan');
+
     }
 }

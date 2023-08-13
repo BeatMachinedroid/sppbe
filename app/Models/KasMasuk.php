@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class KasMasuk extends Model
 {
+    
     protected $DBGroup          = 'default';
     protected $table            = 'kas_masuk';
     protected $primaryKey       = 'id_kas_masuk';
@@ -14,7 +15,7 @@ class KasMasuk extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['penjualan_id','keterangan', 'jenis_kas', 'total_masuk','created_at', 'updated_at'];
+    protected $allowedFields    = ['penjualan_id','keterangan', 'jenis_kas_id', 'total_masuk','tanggal','created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -40,8 +41,9 @@ class KasMasuk extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    
     public function penjualan()
     {
-        return $this->select()->join('penjualan', 'penjualan.id_penjualan = kas_masuk.penjualan_id');
+        return $this->select()->join('jenis_kas','jenis_kas.id_jenis_kas = kas_masuk.jenis_kas_id')->paginate(5, 'masuk');
     }
 }

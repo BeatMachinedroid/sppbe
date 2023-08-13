@@ -5,7 +5,7 @@ namespace App\Controllers\Dashboard;
 use App\Controllers\BaseController;
 use App\Models\Penjualan;
 use App\Models\KasMasuk;
-use App\Models\barang;
+use App\Models\customer;
 use App\Models\Laporan;
 use Carbon\Carbon; 
 
@@ -21,10 +21,10 @@ class PenjualanController extends BaseController
     {
         $pager = \Config\Services::pager();
         $model = new Penjualan();
-        $barang = new Barang();
+        $customer = new Customer();
 
-        $data['penjualan'] = $model->barang();
-        $data['barang'] = $barang->findAll();
+        $data['penjualan'] = $model->customers();
+        $data['customer'] = $customer->findAll();
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         // dd($data);
@@ -34,13 +34,15 @@ class PenjualanController extends BaseController
     public function store()
     {
         $penjualan = new Penjualan();
-        $barang = new Barang();
-        $brg = $barang->find($this->request->getPost('barang'));
+        $customer = new Customer();
+        // $brg = $customer->find($this->request->getPost('customer_id'));
         $data = [
-            'barang_id' => $this->request->getPost('barang'),
-            'keterangan' => $this->request->getPost('keterangan'),
+            'customer_id' => $this->request->getPost('customer_id'),
+            'keterangan_penjualan' => $this->request->getPost('keterangan'),
 			'jumlah' => $this->request->getPost('jumlah'),
-			'total' => $brg['harga_jual'] * $this->request->getPost('jumlah'),
+			'total' => $this->request->getPost('total'),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'barang' => $this->request->getPost('barang'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];      
@@ -49,9 +51,10 @@ class PenjualanController extends BaseController
             $masuk = new KasMasuk();
             $data2 = [
                 'penjualan_id' => $penjualanId,
-                'jenis_kas' => 'Penjualan',
-                'keterangan' => $this->request->getPost('keterangan'),
-                'total_masuk' => $brg['harga_jual'] * $this->request->getPost('jumlah') - $brg['harga_beli'] * $this->request->getPost('jumlah'),
+                'jenis_kas_id' => 2,
+                'keterangan_penjualan' => $this->request->getPost('keterangan'),
+                'total_masuk' => $this->request->getPost('total'),
+                'tanggal' => $this->request->getPost('tanggal'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -63,12 +66,15 @@ class PenjualanController extends BaseController
     public function edit($id)
     {
         $penjualan = new Penjualan();
-        $barang = new Barang();
-        $brg = $barang->find($this->request->getPost('barang'));
         $data = [
-            'barang_id' => $this->request->getPost('barang'),
+            'customer_id' => $this->request->getPost('customer_id'),
+            'keterangan_penjualan' => $this->request->getPost('keterangan'),
 			'jumlah' => $this->request->getPost('jumlah'),
-			'total' => $brg['harga_jual'] * $this->request->getPost('jumlah'),
+			'total' => $this->request->getPost('total'),
+            'tanggal' => $this->request->getPost('tanggal'),
+            'barang' => $this->request->getPost('barang'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ];
         // dd($data);
         $penjualan->update($id, $data);
@@ -86,8 +92,10 @@ class PenjualanController extends BaseController
     public function search()
     {
         $penjualan = new Penjualan();
+        $customer = new Customer();
         $search = $this->request->getGet('search');
-        $data['penjualan'] = $penjualan->like('nama', $search)->paginate(5);
+        $data['customer'] = $customer->findAll();
+        $data['penjualan'] = $penjualan->like('tanggal', $search)->paginate(5);
         $data['pager'] = $penjualan->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         return view('layout/penjualan/penjualan', $data);

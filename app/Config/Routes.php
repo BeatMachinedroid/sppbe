@@ -34,30 +34,31 @@ $routes->get('/register', 'Auth\AuthController::index');
 $routes->post('/register/post', 'Auth\AuthController::register');
 $routes->post('/login/post', 'Auth\AuthController::proses');
 $routes->get('/profile/' , 'Auth\AuthController::profil');
-// $routes->group('', ['filter' => 'admin'], function($routes){
+$routes->group('', ['filter' => 'admin'], function($routes){
     // barang
     $routes->get('/dashboard', 'Home::index');
     $routes->get('/dashboard/logout', 'Auth\AuthController::logout' );
 
-    $routes->get('/dashboard/barang', 'Dashboard\BarangController::index');
-    $routes->post('/dashboard/barang/post', 'Dashboard\BarangController::store');
-    $routes->get('/dashboard/barang/delete/(:segment)', 'Dashboard\BarangController::delete/$1');
-    $routes->post('/dashboard/barang/edit/(:segment)', 'Dashboard\BarangController::edit/$1');
-    $routes->get('/dashboard/barang/search', 'Dashboard\BarangController::search');
+    // pelanggan
+    $routes->get('/dashboard/customer', 'Dashboard\CustomerController::index');
+    $routes->post('/dashboard/customer/post', 'Dashboard\CustomerController::store');
+    $routes->get('/dashboard/customer/delete/(:segment)', 'Dashboard\CustomerController::delete/$1');
+    $routes->post('/dashboard/customer/edit/(:segment)', 'Dashboard\CustomerController::edit/$1');
+    $routes->get('/dashboard/customer/search', 'Dashboard\CustomerController::search');
 
     // penjualan
     $routes->get('/dashboard/penjualan', 'Dashboard\PenjualanController::index');
     $routes->post('/dashboard/penjualan/post', 'Dashboard\PenjualanController::store');
     $routes->post('/dashboard/penjualan/edit/(:segment)', 'Dashboard\PenjualanController::edit/$1');
     $routes->get('/dashboard/penjualan/delete/(:segment)', 'Dashboard\PenjualanController::delete/$1');
-    $routes->get('/dashboard/penjualan/search', 'Dashboard\BarangController::search');
-
-    // pelanggan
-    // $routes->get('/dashboard/pelanggan', 'Dashboard\PelangganController::index');
-    // $routes->post('/dashboard/pelanggan/post', 'Dashboard\PelangganController::store');
-    // $routes->post('/dashboard/pelanggan/edit/(:segment)', 'Dashboard\PelangganController::edit/$1');
-    // $routes->post('/dashboard/pelanggan/delete/(:segment)', 'Dashboard\PelangganController::delete/$1');
-    // $routes->get('/dashboard/pelanggan/search', 'Dashboard\PelangganController::search');
+    $routes->get('/dashboard/penjualan/search', 'Dashboard\PenjualanController::search');
+    
+    // pembelian
+    $routes->get('/dashboard/pembelian', 'Dashboard\PembelianController::index');
+    $routes->post('/dashboard/pembelian/post', 'Dashboard\PembelianController::store');
+    $routes->post('/dashboard/pembelian/edit/(:segment)', 'Dashboard\PembelianController::edit/$1');
+    $routes->get('/dashboard/pembelian/delete/(:segment)', 'Dashboard\PembelianController::delete/$1');
+    $routes->get('/dashboard/pembelian/search', 'Dashboard\PembelianController::search');
 
     //kas masuk
     $routes->get('/dashboard/kas/masuk', 'Dashboard\KasMasukController::index');
@@ -84,7 +85,7 @@ $routes->get('/profile/' , 'Auth\AuthController::profil');
     $routes->get('/dashboard/acount', 'Auth\AuthController::acount');
 
     
-// }); 
+}); 
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -18,12 +18,10 @@ class LaporanController extends BaseController
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->findAll();
         $currentDate = Carbon::now()->toDateString();
-        $data['laporan1'] = $laporan
-        ->where('date(created_at)', $currentDate)
-        ->findAll();
-        $data['laporan2'] = $laporankel
-        ->where('date(created_at)', $currentDate)
-        ->findAll();
+        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
         $data['tanggal'] = $currentDate;
         
         if ($session->get('isLoggedIn') === true) {
@@ -41,22 +39,11 @@ class LaporanController extends BaseController
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['laporan1'] = $laporan
-            ->where("DATE(created_at)", $currentDate)
-            // ->groupBy('created_at')
-            ->findAll();
-        
-        $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
-            // ->groupBy('created_at')
-            ->findAll();
-
-            if ($data['laporan1'] != null) {
-                foreach ($data['laporan1'] as $item) {
-                    $data['tanggal'] = $item['created_at'];
-                }
-            }else {
-                $data['tanggal'] = $currentDate;
-            }
+        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['tanggal'] = $currentDate;
             // dd($data);
         return view('layout/kas/laporan', $data);
     }
@@ -68,22 +55,11 @@ class LaporanController extends BaseController
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['laporan1'] = $laporan
-            ->where("DATE(created_at)", $currentDate)
-            // ->groupBy('created_at')
-            ->findAll();
-        
-        $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
-            // ->groupBy('created_at')
-            ->findAll();
-
-            if ($data['laporan1'] != null) {
-                foreach ($data['laporan1'] as $item) {
-                    $data['tanggal'] = $item['created_at'];
-                }
-            }else {
-                $data['tanggal'] = $currentDate;
-            }
+        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['tanggal'] = $currentDate;
             // dd($data);
 
         $mpdf = new Mpdf();
@@ -98,22 +74,12 @@ class LaporanController extends BaseController
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['laporan1'] = $laporan
-            ->where("DATE(created_at)", $currentDate)
-            ->groupBy('created_at')
-            ->findAll();
+        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
+        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['tanggal'] = $currentDate;
         
-        $data['laporan2'] = $laporankel->where("DATE(created_at)", $currentDate)
-            ->groupBy('created_at')
-            ->findAll();
-
-            if ($data['laporan1'] != null) {
-                foreach ($data['laporan1'] as $item) {
-                    $data['tanggal'] = $item['created_at'];
-                }
-            }else {
-                $data['tanggal'] = $currentDate;
-            }
         return view('layout/kas/laporan', $data);
     }
 }

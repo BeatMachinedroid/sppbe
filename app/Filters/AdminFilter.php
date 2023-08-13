@@ -26,7 +26,7 @@ class AdminFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // Mengecek apakah user sudah login
-        if (! session()->get('isLoggedIn') || session()->get('role') !== 'admin') {
+        if (! session()->get('isLoggedIn') ) {
             return redirect()->to(base_url('/'))->with('msg', 'silakukan login dengan akun admin terlebih dahulu untuk melanjutkan');
         }
     }

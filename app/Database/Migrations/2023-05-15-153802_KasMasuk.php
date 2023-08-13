@@ -21,9 +21,10 @@ class KasMasuk extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'jenis_kas' => [
-                'type' => 'Varchar',
-                'constraint' => 100,
+            'jenis_kas_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
             'keterangan' => [
                 'type' => 'varchar',
@@ -32,6 +33,9 @@ class KasMasuk extends Migration
             'total_masuk' => [
                 'type' => 'INT',
                 'constraint' => 20,
+            ],
+            'tanggal' => [
+                'type' => 'date',
             ],
             'created_at' => [
                 'type' => 'timestamp',
@@ -44,7 +48,9 @@ class KasMasuk extends Migration
         ]);
         $this->forge->addPrimaryKey('id_kas_masuk');
         $this->forge->createTable('kas_masuk');
-        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_penjualan_id` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan`(`id_penjualan`)');
+        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_penjualan_id` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan`(`id_penjualan`) ON DELETE CASCADE') ;
+        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_jenis_kas_masuk_id` FOREIGN KEY (`jenis_kas_id`) REFERENCES `jenis_kas`(`id_jenis_kas`)' );
+    
     }
 
     public function down()
