@@ -4,38 +4,35 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class KasKeluar extends Migration
+class Laporan extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'id_kas_keluar' => [
+            'id_laporan' => [
                 'type'           => 'INT',
                 'constraint'     => 5,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'pembelian_id' => [
+            'kas_masuk_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
                 'null' => true,
             ],
-            'jenis_kas_id' => [
+            'kas_keluar_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
+                'null' => true,
+            ],
+            'tanggal' => [
+                'type' => 'date',
             ],
             'keterangan' => [
                 'type' => 'varchar',
                 'constraint' => 255,
-            ],
-            'total_keluar' => [
-                'type' => 'INT',
-                'constraint' => 20,
-            ],
-            'tanggal' => [
-                'type' => 'date',
             ],
             'created_at' => [
                 'type' => 'timestamp',
@@ -46,15 +43,15 @@ class KasKeluar extends Migration
                 'null' => true,
             ],
         ]);
+        $this->forge->addPrimaryKey('id_laporan');
+        $this->forge->createTable('laporan');
+        $this->db->query('ALTER TABLE `laporan` ADD CONSTRAINT `fk_kas_masuk_id` FOREIGN KEY (`kas_masuk_id`) REFERENCES `kas_masuk`(`id_kas_masuk`) ON DELETE CASCADE ON UPDATE CASCADE') ;
+        $this->db->query('ALTER TABLE `laporan` ADD CONSTRAINT `fk_kas_keluar_id` FOREIGN KEY (`kas_keluar_id`) REFERENCES `kas_keluar`(`id_kas_keluar`) ON DELETE CASCADE ON UPDATE CASCADE') ;
 
-        $this->forge->addPrimaryKey('id_kas_keluar');
-        $this->forge->createTable('kas_keluar');
-        $this->db->query('ALTER TABLE `kas_keluar` ADD CONSTRAINT `fk_jenis_kas_keluar_id` FOREIGN KEY (`jenis_kas_id`) REFERENCES `jenis_kas`(`id_jenis_kas`) ON DELETE CASCADE ON UPDATE CASCADE');
-        $this->db->query('ALTER TABLE `kas_keluar` ADD CONSTRAINT `fk_pembelian_id` FOREIGN KEY (`pembelian_id`) REFERENCES `pembelian`(`id_pembelian`) ON DELETE CASCADE ON UPDATE CASCADE' );
     }
 
     public function down()
     {
-        $this->forge->dropTable('kas_keluar');
+        $this->forge->dropTable('laporan');
     }
 }

@@ -66,6 +66,11 @@
                                     <div class="table-responsive p-0">
                                         <table class="table align-items-center justify-content-center mb-0">
                                             <thead>
+                                            <?php if(session()->getFlashdata('success')) : ?>
+                                                            <div class="alert alert-success">
+                                                                <?= session()->getFlashdata('success') ?>
+                                                            </div>
+                                                        <?php endif; ?>
                                                 <tr>
                                                     <th class="text-left text-uppercase text-xs font-weight-bolder">No
                                                     </th>
@@ -223,7 +228,7 @@
                         <div class="form-group">
 
                             <label class="control-label">Jenis Kas</label>
-                            <select class="form-control" name="customer_id">
+                            <select class="form-control" name="jenis_kas">
                                 <?php foreach ($jenis as $item2): ?>
                                 <option value="<?= $item2['id_jenis_kas'] ?>"><?= $item2['nama'] ?></option>
                                 <?php endforeach; ?>

@@ -42,7 +42,7 @@ class KasKeluar extends Model
 
     public function pembelian()
     {
-        return $this->select()->join('jenis_kas', 'jenis_kas.id_jenis_kas = kas_keluar.jenis_kas_id')->paginate(5, 'keluar');
+        return $this->select()->join('jenis_kas', 'jenis_kas.id_jenis_kas = kas_keluar.jenis_kas_id')->paginate(10, 'keluar');
     }
 
     // public function jenis(){

@@ -19,9 +19,10 @@ class Pembelian extends Migration
                 'type' => 'varchar',
                 'constraint' => 255,
             ],
-            'barang' => [
-                'type' => 'varchar',
-                'constraint' => 255,
+            'jenis_kas_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true,
             ],
             'jumlah' => [
                 'type' => 'INT',
@@ -45,6 +46,7 @@ class Pembelian extends Migration
         ]);
         $this->forge->addPrimaryKey('id_pembelian');
         $this->forge->createTable('pembelian');
+        $this->db->query('ALTER TABLE `pembelian` ADD CONSTRAINT `fk_jenis_kas_id` FOREIGN KEY (`jenis_kas_id`) REFERENCES `jenis_kas`(`id_jenis_kas`) ON DELETE CASCADE ON UPDATE CASCADE');
     }
 
     public function down()

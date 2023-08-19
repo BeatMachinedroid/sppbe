@@ -5,6 +5,8 @@ namespace App\Controllers\Dashboard;
 use App\Controllers\BaseController;
 use App\Models\Pembelian;
 use App\Models\KasKeluar;
+use App\Models\Laporan;
+use App\Models\JenisKas;
 use Carbon\Carbon; 
 
 
@@ -15,10 +17,11 @@ class PembelianController extends BaseController
     {
         $pager = \Config\Services::pager();
         $model = new Pembelian();
-
-        $data['pembelian'] = $model->paginate(5, 'pembelian');
+        $jenis_kas = new JenisKas();
+        $data['pembelian'] = $model->jenis();
+        $data['jenis'] = $jenis_kas->findAll();
         $data['pager'] = $model->pager;
-        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $data['page'] = $this->request->getVar('page_pembelian') ? $this->request->getVar('page_pembelian') : 1;
         // dd($data);
         return view('layout/pembelian/pembelian', $data);
     }
@@ -30,7 +33,7 @@ class PembelianController extends BaseController
 			'jumlah' => $this->request->getPost('jumlah'),
 			'total' => $this->request->getPost('total'),
             'tanggal' => $this->request->getPost('tanggal'),
-            'barang' => $this->request->getPost('barang'),
+            'jenis_kas_id' => $this->request->getPost('jenis'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];      
@@ -39,7 +42,7 @@ class PembelianController extends BaseController
             $keluar = new KasKeluar();
             $data2 = [
                 'pembelian_id' => $pembelianId,
-                'jenis_kas_id' => 1,
+                'jenis_kas_id' => $this->request->getPost('jenis'),
                 'keterangan' => $this->request->getPost('keterangan'),
                 'total_keluar' => $this->request->getPost('total'),
                 'tanggal' => $this->request->getPost('tanggal'),
@@ -47,6 +50,16 @@ class PembelianController extends BaseController
                 'updated_at' => Carbon::now(),
             ];
             $keluar->insert($data2);
+            $keluarId = $keluar->insertID();
+            $laporan = new Laporan();
+            $data3 = [
+                'kas_keluar_id' => $keluarId,
+                'keterangan' => $this->request->getPost('keterangan'),
+                'tanggal' => $this->request->getPost('tanggal'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $laporan->insert($data3);
 
         return redirect()->to(base_url('/dashboard/pembelian'))->with('success', 'Data Added Successfully');
     }

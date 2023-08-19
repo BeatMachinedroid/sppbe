@@ -23,7 +23,7 @@ class KasKeluarController extends BaseController
         // $data['keluar'] = $keluar->pembelian();
         $data['jenis'] = $jenis->findAll();
         $data['pager'] = $keluar->pager;
-        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $data['page'] = $this->request->getVar('page_keluar') ? $this->request->getVar('page_keluar') : 1;
         // dd($data);  
         return view('layout/kas/kaskeluar', $data);
     }
@@ -32,15 +32,25 @@ class KasKeluarController extends BaseController
     {
         $keluar = new KasKeluar();
         $data = [
-			'jenis_kas_id' => $this->request->getPost('jenis'),
+			'jenis_kas_id' => $this->request->getPost('jenis_kas'),
 			'keterangan' => $this->request->getPost('keterangan'),
-			'total' => $this->request->getPost('total'),
+			'total_keluar' => $this->request->getPost('total'),
             'tanggal' => $this->request->getPost('tanggal'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
-
+// dd($this->request->getPost());
         $keluar->insert($data);
+        $keluarId = $keluar->insertID();
+            $laporan = new Laporan();
+            $data3 = [
+                'kas_keluar_id' => $keluarId,
+                'keterangan' => $this->request->getPost('keterangan'),
+                'tanggal' => $this->request->getPost('tanggal'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $laporan->insert($data3);
         return redirect()->to(base_url('/dashboard/kas/keluar'))->with('success', 'Data Added Successfully');
     }
 

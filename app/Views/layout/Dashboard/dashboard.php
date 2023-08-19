@@ -33,22 +33,14 @@
   <div class="container-fluid py-4">
                             <?php
                             $total = 0;
-                                foreach ($MasukIntern as $item2) {
+                                foreach ($Masuk as $item2) {
                                     $total += $item2['total_masuk'];
                             }
                             $total1 = 0;
-                                foreach ($KeluarIntern as $item3) {
+                                foreach ($Keluar as $item3) {
                                     $total1 += $item3['total_keluar'];}
-                            $total2 = 0;
-                                foreach ($MasukExtern as $item4) {
-                                    $total += $item4['total_masuk'];
-                            }
-                            $total3 = 0;
-                                foreach ($KeluarExtern as $item5) {
-                                    $total += $item5['total_keluar'];
-                            }
-                            $masuk = $total + $total2;                                
-                            $keluar = $total1 + $total3;
+                            $masuk = $total;                                
+                            $keluar = $total1;
                             ?>
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -59,7 +51,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Kas</p>
                     <h5 class="font-weight-bolder">
-                    Rp.<?= $total - $total1; ?>
+                    Rp.<?= $masuk - $keluar; ?>
                     </h5>
                   </div>
                 </div>
@@ -80,7 +72,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Kas Masuk</p>
                     <h5 class="font-weight-bolder">
-                    Rp.<?= $total; ?>
+                    Rp.<?= $masuk; ?>
                     </h5>
                   </div>
                 </div>
@@ -101,7 +93,7 @@
                   <div class="numbers">
                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Kas Keluar</p>
                     <h5 class="font-weight-bolder">
-                    Rp.<?= $total1; ?>
+                    Rp.<?= $keluar; ?>
                     </h5>
                   </div>
                 </div>

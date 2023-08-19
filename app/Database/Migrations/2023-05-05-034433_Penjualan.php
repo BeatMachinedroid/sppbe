@@ -50,7 +50,7 @@ class Penjualan extends Migration
         ]);
         $this->forge->addPrimaryKey('id_penjualan');
         $this->forge->createTable('penjualan');
-        $this->db->query('ALTER TABLE `penjualan` ADD CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer`(`id_customer`)');
+        $this->db->query('ALTER TABLE `penjualan` ADD CONSTRAINT `fk_customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer`(`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE' );
     }
 
     public function down()

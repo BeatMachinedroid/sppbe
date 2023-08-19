@@ -12,9 +12,9 @@ class CustomerController extends BaseController
     {
         $pager = \Config\Services::pager();
         $customer = new Customer();
-        $data['customer'] = $customer->paginate(5 , 'customer');
+        $data['customer'] = $customer->paginate(10 , 'customer');
         $data['pager'] = $customer->pager;
-        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $data['page'] = $this->request->getVar('page_customer') ? $this->request->getVar('page_customer') : 1;
         return view('layout/Customer/Customer', $data);
     }
     
@@ -22,7 +22,6 @@ class CustomerController extends BaseController
         $customer =  new Customer();
         $data = [
             'nama_customer' =>  $this->request->getPost('customer'),
-            'alamat' => $this->request->getPost('alamat'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
@@ -34,7 +33,6 @@ class CustomerController extends BaseController
         $customer =  new Customer();
         $data = [
             'nama_customer' =>  $this->request->getPost('customer'),
-            'alamat' => $this->request->getPost('alamat'),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];

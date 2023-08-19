@@ -21,11 +21,6 @@ class KasMasuk extends Migration
                 'unsigned' => true,
                 'null' => true,
             ],
-            'jenis_kas_id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
-            ],
             'keterangan' => [
                 'type' => 'varchar',
                 'constraint' => 255,
@@ -48,8 +43,8 @@ class KasMasuk extends Migration
         ]);
         $this->forge->addPrimaryKey('id_kas_masuk');
         $this->forge->createTable('kas_masuk');
-        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_penjualan_id` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan`(`id_penjualan`) ON DELETE CASCADE') ;
-        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_jenis_kas_masuk_id` FOREIGN KEY (`jenis_kas_id`) REFERENCES `jenis_kas`(`id_jenis_kas`)' );
+        $this->db->query('ALTER TABLE `kas_masuk` ADD CONSTRAINT `fk_penjualan_id` FOREIGN KEY (`penjualan_id`) REFERENCES `penjualan`(`id_penjualan`) ON DELETE CASCADE ON UPDATE CASCADE') ;
+    
     
     }
 

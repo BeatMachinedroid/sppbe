@@ -15,7 +15,7 @@ class Laporan extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kas_masuk_id','kas_keluar_id','created_at','updated_at'];
+    protected $allowedFields    = ['kas_masuk_id','kas_keluar_id','tanggal','keterangan','created_at','updated_at'];
 
     // Dates
     protected $useTimestamps = false;
@@ -41,5 +41,13 @@ class Laporan extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-
+    public function masuk()
+    {
+        return $this->select()->join('kas_masuk','kas_masuk.id_kas_masuk = laporan.kas_masuk_id')->findAll();
+    }
+    
+    public function keluar()
+    {
+        return $this->select()->join('kas_keluar','kas_keluar.id_kas_keluar = laporan.kas_keluar_id')->findAll();
+    }
 }

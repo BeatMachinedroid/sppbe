@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-3">
+                        <div class="col-lg-9">
                             <a class="btn btn-primary btn-sm btn-addon" onclick="printPdf()" style="color:white">
                                 <i class="ti-download"></i>PDF
                             </a>
@@ -45,42 +45,10 @@
                                 <i class="ti-printer"></i>PRINT
                             </button>
                         </div>
-                        <div class="col-sm-6 ">
-                            <?php
-                            $total = 0;
-                                foreach ($MasukIntern as $item2) {
-                                    $total += $item2['total_masuk'];
-                            }
-                            ?><?php
-                            $total1 = 0;
-                                foreach ($KeluarIntern as $item3) {
-                                    $total1 += $item3['total_keluar'];}
-                            $total2 = 0;
-                                foreach ($MasukExtern as $item4) {
-                                    $total += $item4['total_masuk'];
-                            }
-                            $total3 = 0;
-                                foreach ($KeluarExtern as $item5) {
-                                    $total += $item5['total_keluar'];
-                            }
-                            $masuk = $total + $total2;                                
-                            $keluar = $total1 + $total3;                                
-                            if($masuk - $total1 < 0 ) {?>
-                            <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"
-                                role="alert" data-brk-library="component__alert">
-                                <button type="button" class="close font__size-18" data-dismiss="alert">
-                                    <span aria-hidden="true">
-                                        <i class="fa fa-times warning"></i>
-                                    </span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
-                                <strong class="font__weight-semibold">Warning!</strong> Saldo, is't balance!!.
-                            </div>
-                            <?php }?>
-                        </div>
+                        <!--  -->
                         <div class="col-sm-3">
-                            <form action="<?= base_url('dashboard/kas/laporan/search') ?>" method="get" id="search">
+                            <form action="<?= base_url('dashboard/kas/laporan/search') ?>" method="get"
+                                id="search">
                                 <input type="date" class="form-control" name="tanggal" id="tanggal" required>
                                 <!-- <button type="submit" class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button> -->
                             </form>
@@ -90,153 +58,74 @@
                         <div class="col-lg-12">
                             <div class="card-body">
                                 <h1 style="text-align: center">PT Karunia Ulul Azmi</h1>
-                                <p class="text-right">Tanggal : <?= date('d  M  Y', strtotime($tanggal)) ?></p>
+                                <p class="text-right"></p>
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
-                                            <thead>
-                                                <th class="text-center text-uppercase font-weight-bolder bg-primary text-white" colspan="3">Uraian</th>
-                                                <th class="text-center text-uppercase font-weight-bolder bg-primary text-white">Jumlah</th>
-                                            </thead>
+                                        <thead>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                No</th>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                Tanggal</th>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                Keterangan</th>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                masuk</th>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                keluar</th>
+                                            <th
+                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                Total saldo</th>
+                                        </thead>
                                         <tbody>
+                                            <?php $no=1 ; foreach ($laporan as $item): ?>
                                             <tr>
-                                                <th class="text-left text-uppercase text-xs font-weight-bolder" colspan="4">Kas Masuk</th>
-                                            </tr>
-                                            <?php
-                                                $TotalIntern = 0;
-                                                foreach ($MasukIntern as $itemMsi) { $TotalIntern += $itemMsi['total_masuk'];}?>
-                                            <tr>
-                                                <th></th>
-                                                <th colspan="2" class="text-left text-uppercase text-xs font-weight-bolder">Internal</th>
-                                                <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $TotalIntern; ?></th>
-                                            </tr>
-                                            <?php if (empty($TotalIntern)) { ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder">-</th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. 0</th>
-                                                </tr>
-                                                <?php } else {?>
-                                            <?php foreach ($MasukIntern as $itemmasuk): ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder"><?= $itemmasuk['keterangan']; ?></th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $itemMsi['total_masuk']; ?></th>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            <?php }?>
-                                            <tr>
-                                            <?php
-                                                $TotalExtern = 0;
-                                                foreach ($MasukExtern as $ItemExtern) { $TotalExtern += $ItemExtern['total_masuk'];}?>
-                                                <th></th>
-                                                <th colspan="2" class="text-left text-uppercase text-xs font-weight-bolder">External</th>
-                                                <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $TotalExtern; ?></th>
-                                            </tr>
-                                            <?php if (empty($MasukExtern)) { ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder">-</th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. 0</th>
-                                                </tr>
-                                                <?php } else {?>
-                                            <?php foreach ($MasukExtern as $ItemExtern): 
-                                                
-                                                ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder"><?= $ItemExtern['keterangan']; ?></th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $ItemExtern['total_masuk']; ?></th>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            <?php }?>
-                                            <tr>
-                                                <th colspan="3"
-                                                    class="text-center text-uppercase bg-primary text-white font-weight-bold">Jumlah
-                                                    Kas masuk</th>
-                                                <th class="text-right text-uppercase bg-primary text-white font-weight-bold">
-                                                    Rp. <?= $TotalIntern + $TotalExtern; ?></th>
-                                            </tr>
-                                            <tr>
-                                                <th class="text-left text-uppercase text-xs font-weight-bolder" colspan="4">Kas Keluar</th>
-                                            </tr>
-                                            <tr>
-                                            <?php
-                                                $TotalKelIntern = 0;
-                                                foreach ($KeluarIntern as $ItemKasIntern) { $TotalKelIntern += $ItemKasIntern['total_keluar'];}?>
-                                                <th></th>
-                                                <th colspan="2" class="text-left text-uppercase text-xs font-weight-bolder">Internal</th>
-                                                <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $TotalKelIntern; ?></th>
-                                            </tr>
-                                            <?php if (empty($KeluarIntern)) { ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder">- </th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. 0</th>
-                                                </tr>
-                                                <?php } else {?>
-                                            <?php foreach ($KeluarIntern as $ItemKasIntern): ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder"><?= $ItemKasIntern['keterangan']; ?></th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $ItemKasIntern['total_keluar']; ?></th>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            <?php }?>
-                                            <tr>
-                                            <?php
-                                                $TotalKelExtern = 0;
-                                                foreach ($KeluarExtern as $ItemKelExtern) { $TotalKelExtern += $ItemKelExtern['total_keluar'];}?>
-                                                <th></th>
-                                                <th colspan="2" class="text-left text-uppercase text-xs font-weight-bolder">External</th>
-                                                <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $TotalKelExtern; ?></th>
-                                            </tr>
-                                            
-                                            <?php if (empty($KeluarExtern)) { ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder">-</th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. 0</th>
-                                                </tr>
-                                                <?php } else {?>
-                                            <?php foreach ($KeluarExtern as $ItemKelExtern): ?>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                    <th class="text-left text-uppercase text-xs font-weight-bolder"><?= $ItemKelExtern['keterangan']; ?></th>
-                                                    <th class="text-right text-uppercase text-xs font-weight-bolder">Rp. <?= $ItemKelExtern['total_keluar']; ?></th>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                            <?php }?>
-                                           
-                                            </tr>
-                                            <tr>
-                                                <th colspan="3"
-                                                    class="text-center text-uppercase bg-primary text-white font-weight-bold">Jumlah
-                                                    Kas keluar</th>
-                                                
-                                                <th class="text-right text-uppercase bg-primary text-white font-weight-bold">
-                                                    Rp. <?= $TotalKelIntern + $TotalKelExtern; ?></th>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="3"
-                                                    class="text-center text-uppercase bg-primary text-white font-weight-bold">Total
-                                                    Saldo</th>
-
-                                                <th class="text-right text-uppercase bg-primary text-white font-weight-bold">
-                                                    <?php 
-                                                        $kaskeluar = $TotalKelIntern + $TotalKelExtern;
-                                                        $kasmasuk = $TotalIntern + $TotalExtern;
+                                                <td class="text-center"><?= $no++ ?></td>
+                                                <td><?= $item['tanggal'] ?></td>
+                                                <td><?= $item['keterangan'] ?></td>
+                                                <td>
+                                                    <?php
+                                                    $totalMasuk = 0;
+                                                    foreach ($item['masuk'] as $masukItem) {
+                                                        echo 'Rp.'.$masukItem['total_masuk'] . '<br>';
+                                                        $totalMasuk += $masukItem['total_masuk'];
+                                                    }
                                                     ?>
-                                                    Rp. <?= $kasmasuk - $kaskeluar  ?></th>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    $totalKeluar = 0;
+                                                    foreach ($item['keluar'] as $keluarItem) {
+                                                        echo 'Rp.'. $keluarItem['total_keluar'] . '<br>';
+                                                        $totalKeluar += $keluarItem['total_keluar'];
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>Rp.<?= $totalMasuk - $totalKeluar ?></td>
+                                            </tr>
+                                            <?php endforeach;?>
+                                            <tr>
+                                                <th colspan="3" class="text-center">Total</th>
+                                                <?php 
+                                                    $masuk = 0;
+                                                    foreach ($laporanmasuk as $total){
+                                                        $masuk += $total['total_masuk'];
+                                                    }
+                                                    $keluar = 0;
+                                                    foreach ($laporankeluar as $totall) {
+                                                        $keluar += $totall['total_keluar'];
+                                                    }
+                                                ?>
+                                                <th>Rp.<?= $masuk ?></th>
+                                                <th>Rp.<?= $keluar ?></th>
+                                                <th>Rp.<?= $masuk - $keluar; ?></th>
                                             </tr>
                                         </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
@@ -256,7 +145,7 @@
     <script>
         function printPdf() {
             // Ganti dengan URL halaman yang menghasilkan PDF
-            var pdfUrl = '/pdf?tanggal=<?= date('Y-m-d', strtotime($tanggal)) ?>';
+            var pdfUrl = '/pdf?tanggal=';
             window.open(pdfUrl, '_blank');
         }
     </script>

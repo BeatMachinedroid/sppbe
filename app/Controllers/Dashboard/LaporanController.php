@@ -7,22 +7,32 @@ use Carbon\Carbon;
 use Mpdf\Mpdf;
 use App\Models\KasMasuk;
 use App\Models\KasKeluar;
+use App\Models\Laporan;
 
 class LaporanController extends BaseController
 {
     public function index()
     {
         $session = session();
-        $laporan = new KasMasuk();
-        $laporankel = new KasKeluar();
-        // $laporan1 = new KasKeluar();
+        $laporan = new Laporan();
+        $laporan1 = new KasKeluar();
+        $laporan2 = new KasMasuk();
         // $data['laporan'] = $laporan->penjualan()->findAll();
         $currentDate = Carbon::now()->toDateString();
-        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
-        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
-        $data['tanggal'] = $currentDate;
+        $data['laporan'] = $laporan->findAll();
+        $data['laporankeluar'] = $laporan->keluar();
+        $data['laporanmasuk'] = $laporan->masuk();
+        foreach ($data['laporan'] as &$item) {
+            $idKasKeluar = $item['kas_keluar_id'];
+            $idKasMasuk = $item['kas_masuk_id'];
+            // Retrieve "masuk" data based on id_kas_keluar
+            $item['masuk'] = $laporan2->where('id_kas_masuk', $idKasMasuk)->findAll();
+        
+            // Retrieve "keluar" data based on id_kas_keluar
+            $item['keluar'] = $laporan1->where('id_kas_keluar', $idKasKeluar)->findAll();
+            
+        }
+        unset($item);
         
         if ($session->get('isLoggedIn') === true) {
             // dd($data);
@@ -34,15 +44,26 @@ class LaporanController extends BaseController
 
     public function search()
     {
-        $laporan = new KasMasuk();
-        $laporankel = new KasKeluar();
+        $laporan = new Laporan();
+        $laporan2 = new KasMasuk();
+        $laporan1 = new KasKeluar();
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
-        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['laporan'] = $laporan->where('tanggal',$currentDate)->findAll();
+        $data['laporankeluar'] = $laporan->keluar();
+        $data['laporanmasuk'] = $laporan->masuk();
+        foreach ($data['laporan'] as &$item) {
+            $idKasKeluar = $item['kas_keluar_id'];
+            $idKasMasuk = $item['kas_masuk_id'];
+            // Retrieve "masuk" data based on id_kas_keluar
+            $item['masuk'] = $laporan2->where('id_kas_masuk', $idKasMasuk)->findAll();
+        
+            // Retrieve "keluar" data based on id_kas_keluar
+            $item['keluar'] = $laporan1->where('id_kas_keluar', $idKasKeluar)->findAll();
+            
+        }
+        unset($item);
         $data['tanggal'] = $currentDate;
             // dd($data);
         return view('layout/kas/laporan', $data);
@@ -50,15 +71,26 @@ class LaporanController extends BaseController
 
     public function generatePdf()
     {
-        $laporan = new KasMasuk();
-        $laporankel = new KasKeluar();
+        $laporan = new Laporan();
+        $laporan2 = new KasMasuk();
+        $laporan1 = new KasKeluar();
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
-        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['laporan'] = $laporan->where('tanggal',$currentDate)->findAll();
+        $data['laporankeluar'] = $laporan->keluar();
+        $data['laporanmasuk'] = $laporan->masuk();
+        foreach ($data['laporan'] as &$item) {
+            $idKasKeluar = $item['kas_keluar_id'];
+            $idKasMasuk = $item['kas_masuk_id'];
+            // Retrieve "masuk" data based on id_kas_keluar
+            $item['masuk'] = $laporan2->where('id_kas_masuk', $idKasMasuk)->findAll();
+        
+            // Retrieve "keluar" data based on id_kas_keluar
+            $item['keluar'] = $laporan1->where('id_kas_keluar', $idKasKeluar)->findAll();
+            
+        }
+        unset($item);
         $data['tanggal'] = $currentDate;
             // dd($data);
 
@@ -69,15 +101,27 @@ class LaporanController extends BaseController
     }
 
     public function print(){
-        $laporan = new KasMasuk();
-        $laporankel = new KasKeluar();
+        $laporan = new Laporan();
+
+        $laporan2 = new KasMasuk();
+        $laporan1 = new KasKeluar();
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['MasukIntern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['MasukExtern'] = $laporan->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
-        $data['KeluarIntern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 1)->findAll();
-        $data['KeluarExtern'] = $laporankel->where('date(tanggal)', $currentDate)->where('jenis_kas_id', 2)->findAll();
+        $data['laporan'] = $laporan->where('tanggal', $currentDate)->findAll();
+        $data['laporankeluar'] = $laporan->keluar();
+        $data['laporanmasuk'] = $laporan->masuk();
+        foreach ($data['laporan'] as &$item) {
+            $idKasKeluar = $item['kas_keluar_id'];
+            $idKasMasuk = $item['kas_masuk_id'];
+            // Retrieve "masuk" data based on id_kas_keluar
+            $item['masuk'] = $laporan2->where('id_kas_masuk', $idKasMasuk)->findAll();
+        
+            // Retrieve "keluar" data based on id_kas_keluar
+            $item['keluar'] = $laporan1->where('id_kas_keluar', $idKasKeluar)->findAll();
+            
+        }
+        unset($item);
         $data['tanggal'] = $currentDate;
         
         return view('layout/kas/laporan', $data);

@@ -6,22 +6,31 @@ use App\Controllers\BaseController;
 use App\Models\KasMasuk;
 use App\Models\Penjualan;
 use App\Models\JenisKas;
+use App\Models\Customer;
+use App\Models\Laporan;
 use Carbon\Carbon;
 class KasMasukController extends BaseController
 {
     public function index()
     {
         $pager = \Config\Services::pager();
+        $data['page'] = $this->request->getVar('page_masuk') ? $this->request->getVar('page_masuk') : 1;
         $masuk = new KasMasuk();
         $jenis = new JenisKas();
-        // $data['customer'] = $customer->findAll();
-        // $data['check'] = $masuk->findall();
-        // $check = $data['check'];
-        $data['masuk'] = $masuk->penjualan();
+        $customer = new Customer();
+        $data['customer'] = $customer->findAll();
+        $data['check'] = $masuk->findall();
+        $check = $data['check'];
+        $data['masuk'] = $masuk->paginate(10, 'masuk');
+        // foreach ($data['masuk'] as $item) {
+        //     if ($item['penjualan_id'] !== null) {
+                // $data['kas_masuk'] = $masuk->penjualan();
+            // }
+        // }
         // $data['masuk'] = $masuk->pembelian();
         $data['jenis'] = $jenis->findAll();
         $data['pager'] = $masuk->pager;
-        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+
         // dd($data);  
         // dd($data);
         return view('layout/kas/kasmasuk', $data);
@@ -38,6 +47,16 @@ class KasMasukController extends BaseController
         ];
         $masuk->insert($data);
         $masuk->created_at = Carbon::now();
+        $masukId = $masuk->insertID();
+            $laporan = new Laporan();
+            $data3 = [
+                'kas_keluar_id' => $masukId,
+                'keterangan' => $this->request->getPost('keterangan'),
+                'tanggal' => $this->request->getPost('tanggal'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $laporan->insert($data3);
         return redirect()->to(base_url('/dashboard/kas/masuk'))->with('success', 'Data Added Successfully');
     }
 

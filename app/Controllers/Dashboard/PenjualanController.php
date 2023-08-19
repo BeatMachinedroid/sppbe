@@ -26,7 +26,7 @@ class PenjualanController extends BaseController
         $data['penjualan'] = $model->customers();
         $data['customer'] = $customer->findAll();
         $data['pager'] = $model->pager;
-        $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
+        $data['page'] = $this->request->getVar('page_penjualan') ? $this->request->getVar('page_penjualan') : 1;
         // dd($data);
         return view('layout/penjualan/penjualan', $data);
     }
@@ -49,16 +49,26 @@ class PenjualanController extends BaseController
         $penjualan->insert($data);
         $penjualanId = $penjualan->insertID();
             $masuk = new KasMasuk();
+            $customerket = $customer->where('id_customer' , $this->request->getPost('customer_id'))->first();
             $data2 = [
                 'penjualan_id' => $penjualanId,
-                'jenis_kas_id' => 2,
-                'keterangan_penjualan' => $this->request->getPost('keterangan'),
+                'keterangan' => $customerket['nama_customer'],
                 'total_masuk' => $this->request->getPost('total'),
                 'tanggal' => $this->request->getPost('tanggal'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
             $masuk->insert($data2);
+            $masukId = $masuk->insertID();
+            $laporan = new Laporan();
+            $data3 = [
+                'kas_masuk_id' => $masukId,
+                'keterangan' => $this->request->getPost('keterangan'),
+                'tanggal' => $this->request->getPost('tanggal'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+            $laporan->insert($data3);
 
         return redirect()->to(base_url('/dashboard/penjualan'))->with('success', 'Data Added Successfully');
     }

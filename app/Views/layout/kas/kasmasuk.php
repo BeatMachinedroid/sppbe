@@ -64,13 +64,17 @@
                                     <div class="table-responsive p-0">
                                         <table class="table align-items-center justify-content-center mb-0">
                                             <thead>
+                                            <?php if(session()->getFlashdata('success')) : ?>
+                                                            <div class="alert alert-success">
+                                                                <?= session()->getFlashdata('success') ?>
+                                                            </div>
+                                                        <?php endif; ?>
                                                 <tr>
                                                     <th class="text-left text-uppercase text-xs font-weight-bolder">No
                                                     </th>
                                                     <th class="text-center text-uppercase text-xs font-weight-bolder">
                                                         Tanggal</th>
-                                                    <th class="text-center text-uppercase text-xs font-weight-bolder">
-                                                        Jenis Kas</th>
+                                                    
                                                     <th class="text-center text-uppercase text-xs font-weight-bolder">
                                                         Keterangan</th>
                                                     <th class="text-center text-uppercase text-xs font-weight-bolder">
@@ -93,7 +97,6 @@
                                                 <tr>
                                                     <td class="text-center"><?= $no++ ?></td>
                                                     <td class="text-center"><?= $item['tanggal'] ?></td>
-                                                    <td class="text-center"><?= $item['nama'] ?></td>
                                                     <td class="text-center"><?= $item['keterangan'] ?></td>
                                                     <td class="text-center"><?= $item['total_masuk'] ?></td>
                                                     <td class="text-center">
@@ -133,12 +136,7 @@
                                                                     method="post">
                                                                     <?= csrf_field() ?>
                                                                     <div class="modal-body">
-                                                                    <div class="form-group">
-                            <label class="control-label">Jenis Kas</label>
-                            <select class="form-control" name="jenis_kas" disabled>
-                                <option value="<?= $item['jenis_kas_id'] ?>"><?= $item['nama'] ?></option>
-                            </select>
-                        </div>
+                                                                    
                         <div class="form-group">
                             <label class="control-label">keterangan</label>
                             <input type="text" class="form-control" placeholder="Keterangan" name="keterangan"
@@ -196,12 +194,7 @@
                 <form action="<?= base_url('/dashboard/kas/masuk/post') ?>" method="post">
                     <?= csrf_field() ?>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label class="control-label">Jenis Kas</label>
-                            <select class="form-control" name="jenis_kas" disabled>
-                                <option value="1">External</option>
-                            </select>
-                        </div>
+                        
                         <div class="form-group">
                             <label class="control-label">keterangan</label>
                             <input type="text" class="form-control" placeholder="Keterangan" name="keterangan"

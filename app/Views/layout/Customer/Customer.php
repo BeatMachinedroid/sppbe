@@ -166,11 +166,6 @@
                                         <label class="control-label">Customer</label>
                                             <input type="text" class="form-control" placeholder="Customer" name="customer">
                                         </div>
-
-                                        <div class="form-group">
-                                        <label class="control-label">Alamat</label>
-                                            <input type="text" class="form-control" placeholder="Alamat" name="alamat">
-                                        </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

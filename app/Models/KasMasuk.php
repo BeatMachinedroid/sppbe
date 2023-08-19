@@ -15,7 +15,7 @@ class KasMasuk extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['penjualan_id','keterangan', 'jenis_kas_id', 'total_masuk','tanggal','created_at', 'updated_at'];
+    protected $allowedFields    = ['penjualan_id','keterangan',  'total_masuk','tanggal','created_at', 'updated_at'];
 
     // Dates
     protected $useTimestamps = true;
@@ -44,6 +44,6 @@ class KasMasuk extends Model
     
     public function penjualan()
     {
-        return $this->select()->join('jenis_kas','jenis_kas.id_jenis_kas = kas_masuk.jenis_kas_id')->paginate(5, 'masuk');
+        return $this->select()->join('penjualan','penjualan.id_penjualan = kas_masuk.penjualan_id')->paginate(10, 'masuk');
     }
 }

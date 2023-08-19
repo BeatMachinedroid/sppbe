@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\KasMasuk;
 use App\Models\KasKeluar;
 use App\Models\Penjualan;
+use App\Models\Laporan;
 use Carbon\Carbon;
 
 class Home extends BaseController
@@ -15,13 +16,12 @@ class Home extends BaseController
         $laporan = new KasMasuk();
         $laporankel = new KasKeluar();
         $penjualan = new Penjualan();
+        $laporann = new Laporan();
         // $laporan1 = new KasKeluar();
         $data['penjualan'] = $penjualan->groupBy('tanggal', 'desc')->findAll();
         // $currentDate = Carbon::now()->format('Y');
-        $data['MasukIntern'] = $laporan->where('jenis_kas_id', 1)->findAll();
-        $data['MasukExtern'] = $laporan->where('jenis_kas_id', 2)->findAll();
-        $data['KeluarIntern'] = $laporankel->where('jenis_kas_id', 1)->findAll();
-        $data['KeluarExtern'] = $laporankel->where('jenis_kas_id', 2)->findAll();
+        $data['Masuk'] = $laporan->findAll();
+        $data['Keluar'] = $laporankel->findAll();
 
             // $chartlaporanmasuk = [];
             // $chartlaporankeluar = ""

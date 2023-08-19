@@ -42,7 +42,7 @@ class Penjualan extends Model
 
     public function customers()
     {
-        return $this->select()->join('customer', 'customer.id_customer = penjualan.customer_id')->paginate(5, 'penjualan');
+        return $this->select()->join('customer', 'customer.id_customer = penjualan.customer_id')->paginate(10, 'penjualan');
 
     }
 }
