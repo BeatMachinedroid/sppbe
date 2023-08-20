@@ -29,12 +29,10 @@ class CustomerController extends BaseController
         return redirect()->to(base_url('/dashboard/customer'))->with('success', 'Data Added Successfully');
     }
 
-    public function update($id){
+    public function edit($id){
         $customer =  new Customer();
         $data = [
             'nama_customer' =>  $this->request->getPost('customer'),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ];
         $customer->update($id, $data);
         $customer->updated_at = Carbon::now();

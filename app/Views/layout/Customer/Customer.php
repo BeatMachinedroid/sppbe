@@ -111,7 +111,7 @@
                                                                                     <span aria-hidden="true"><i class="ti-close" style="color: white;"></i></span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <form action="<?= base_url('dashboard/penjualan/edit/'.$item['id_customer']) ?>" method="post">
+                                                                                <form action="<?= base_url('dashboard/customer/edit/'.$item['id_customer']) ?>" method="post">
                                                                                 <?= csrf_field(); ?>
                                                                                     <div class="modal-body">
                                                                                     
