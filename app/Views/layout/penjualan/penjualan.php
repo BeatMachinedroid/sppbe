@@ -49,10 +49,9 @@
                                         <a href="" class="btn btn-info btn-outline m-b-10">Excel</a> -->
                         </div>
                         <div class="col-sm-3">
-                            <form action="<?= base_url('/dashboard/barang/search') ?>" method="get">
+                            <form action="<?= base_url('/dashboard/penjualan/search') ?>" method="get" id="search">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" placeholder="Search" name="search"
-                                        id="tanggal">
+                                    <input type="date" class="form-control" placeholder="Search" name="search" id="tanggal">
                                 </div>
                             </form>
                         </div>

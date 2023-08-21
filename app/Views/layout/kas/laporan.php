@@ -36,7 +36,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-3">
                             <a class="btn btn-primary btn-sm btn-addon" onclick="printPdf()" style="color:white">
                                 <i class="ti-download"></i>PDF
                             </a>
@@ -45,7 +45,29 @@
                                 <i class="ti-printer"></i>PRINT
                             </button>
                         </div>
-                        <!--  -->
+                        <div class="col-sm-6 ">
+                            <?php 
+                            $masuk = 0;
+                            foreach ($laporanmasuk as $total){
+                                $masuk += $total['total_masuk'];
+                            }
+                            $keluar = 0;
+                            foreach ($laporankeluar as $totall) {
+                                $keluar += $totall['total_keluar'];
+                            }
+                            if($masuk - $keluar < 0 ) {?>
+                                <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+                                    <button type="button" class="close font__size-18" data-dismiss="alert">
+                                                                <span aria-hidden="true">
+                                                                    <i class="fa fa-times warning"></i>
+                                                                </span>
+                                                                <span class="sr-only">Close</span>
+                                                            </button>
+                                        <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
+                                    <strong class="font__weight-semibold">Warning!</strong> Saldo, is't balance!!.
+                                </div>
+                            <?php }?>
+                        </div>
                         <div class="col-sm-3">
                             <form action="<?= base_url('dashboard/kas/laporan/search') ?>" method="get"
                                 id="search">
@@ -145,7 +167,8 @@
     <script>
         function printPdf() {
             // Ganti dengan URL halaman yang menghasilkan PDF
-            var pdfUrl = '/pdf?tanggal=';
+            var tanggal = '<?php echo $tanggal; ?>';
+            var pdfUrl = '/pdf?tanggal='+tanggal;
             window.open(pdfUrl, '_blank');
         }
     </script>

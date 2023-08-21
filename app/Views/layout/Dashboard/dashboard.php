@@ -138,7 +138,7 @@
           <div class="card ">
             <div class="card-header pb-0 p-3">
               <div class="d-flex justify-content-between">
-                <h6 class="mb-2">Total </h6>
+                <h6 class="mb-2">Total Kas</h6>
               </div>
             </div>
             <div class="card-body p-3">

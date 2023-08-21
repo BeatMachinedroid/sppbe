@@ -105,7 +105,7 @@ class PenjualanController extends BaseController
         $customer = new Customer();
         $search = $this->request->getGet('search');
         $data['customer'] = $customer->findAll();
-        $data['penjualan'] = $penjualan->like('tanggal', $search)->paginate(5);
+        $data['penjualan'] = $penjualan->like('tanggal', $search)->customers();
         $data['pager'] = $penjualan->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         return view('layout/penjualan/penjualan', $data);

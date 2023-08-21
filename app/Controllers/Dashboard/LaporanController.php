@@ -33,7 +33,7 @@ class LaporanController extends BaseController
             
         }
         unset($item);
-        
+        $data['tanggal'] = Carbon::now()->toDateString();
         if ($session->get('isLoggedIn') === true) {
             // dd($data);
             return view('layout/kas/laporan', $data);
@@ -77,7 +77,7 @@ class LaporanController extends BaseController
         // $laporan1 = new KasKeluar();
         // $data['laporan'] = $laporan->penjualan()->groupBy('kas_masuk.created_at', 'desc')->findAll();
         $currentDate = $this->request->getGet('tanggal');
-        $data['laporan'] = $laporan->where('tanggal',$currentDate)->findAll();
+        $data['laporan'] = $laporan->findAll();
         $data['laporankeluar'] = $laporan->keluar();
         $data['laporanmasuk'] = $laporan->masuk();
         foreach ($data['laporan'] as &$item) {
@@ -91,6 +91,7 @@ class LaporanController extends BaseController
             
         }
         unset($item);
+
         $data['tanggal'] = $currentDate;
             // dd($data);
 

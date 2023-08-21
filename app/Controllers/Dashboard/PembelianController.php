@@ -88,10 +88,11 @@ class PembelianController extends BaseController
     {
         $pager = \Config\Services::pager();
         $model = new Pembelian();
-        $search = $this->request->getGet('search');
+        $jenis_kas = new JenisKas();
 
-        $data['pembelian'] = $model->paginate(5, 'pembelian');
-        $data['pembelian'] = $model->like('tanggal', $search)->paginate(5);
+        $search = $this->request->getGet('search');
+        $data['jenis'] = $jenis_kas->findAll();
+        $data['pembelian'] = $model->like('tanggal', $search)->jenis();
         $data['pager'] = $model->pager;
         $data['page'] = $this->request->getVar('page') ? $this->request->getVar('page') : 1;
         return view('layout/pembelian/pembelian', $data);
