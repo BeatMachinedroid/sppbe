@@ -76,24 +76,26 @@ tr:nth-child(even) {
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
+                                            <tr>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 No</th>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 Tanggal</th>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 Keterangan</th>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 masuk</th>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 keluar</th>
                                             <th
-                                                class="text-center text-uppercase font-weight-bolder bg-primary text-white">
+                                                class="text-center">
                                                 Total saldo</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             <?php $no=1 ; foreach ($laporan as $item): ?>

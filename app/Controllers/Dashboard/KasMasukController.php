@@ -40,7 +40,6 @@ class KasMasukController extends BaseController
     {
         $masuk = new KasMasuk();
         $data = [
-			'jenis_kas_id' => $this->request->getPost('jenis'),
 			'keterangan' => $this->request->getPost('keterangan'),
 			'total_masuk' => $this->request->getPost('total'),
             'tanggal' => $this->request->getPost('tanggal'),
@@ -50,7 +49,7 @@ class KasMasukController extends BaseController
         $masukId = $masuk->insertID();
             $laporan = new Laporan();
             $data3 = [
-                'kas_keluar_id' => $masukId,
+                'kas_masuk_id' => $masukId,
                 'keterangan' => $this->request->getPost('keterangan'),
                 'tanggal' => $this->request->getPost('tanggal'),
                 'created_at' => Carbon::now(),
